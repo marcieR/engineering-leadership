@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering Leadership Program</title>
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --accent: #e94560;
+            --accent-light: #ff6b81;
+            --surface: #16213e;
+            --surface-light: #0f3460;
+            --text: #eaeaea;
+            --text-muted: #a0a0b8;
+            --gold: #f5c518;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+            background: var(--primary);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            border-bottom: 1px solid rgba(233, 69, 96, 0.2);
+        }
+
+        nav .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--accent);
+            letter-spacing: 0.5px;
+        }
+
+        nav .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        nav .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        nav .nav-links a:hover {
+            color: var(--accent-light);
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(233, 69, 96, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 50%, rgba(15, 52, 96, 0.3) 0%, transparent 50%),
+                var(--primary);
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text) 0%, var(--accent-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero .quote {
+            font-style: italic;
+            color: var(--gold);
+            font-size: 1.1rem;
+            margin-top: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero .scroll-cue {
+            margin-top: 3rem;
+            display: inline-block;
+            animation: bounce 2s infinite;
+            color: var(--accent);
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* PROGRESS BAR */
+        .progress-section {
+            padding: 3rem 2rem;
+            text-align: center;
+            background: var(--surface);
+        }
+
+        .progress-section h2 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-track {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .progress-track::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--surface-light);
+            transform: translateY(-50%);
+        }
+
+        .progress-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--surface-light);
+            border: 2px solid var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--accent);
+            position: relative;
+            z-index: 1;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .progress-dot:hover {
+            background: var(--accent);
+            color: #fff;
+            transform: scale(1.2);
+        }
+
+        /* SESSIONS */
+        .sessions {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .sessions > h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: var(--text);
+        }
+
+        .session-card {
+            background: var(--surface);
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(233, 69, 96, 0.1);
+            overflow: hidden;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .session-card:hover {
+            border-color: rgba(233, 69, 96, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .session-header {
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .session-number {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            color: #fff;
+        }
+
+        .session-title {
+            flex: 1;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .session-toggle {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            transition: transform 0.3s;
+        }
+
+        .session-card.open .session-toggle {
+            transform: rotate(45deg);
+        }
+
+        .session-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .session-body-inner {
+            padding: 0 2rem 2rem;
+            padding-left: calc(2rem + 48px + 1.25rem);
+        }
+
+        .session-body-inner h4 {
+            color: var(--accent-light);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .session-body-inner ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .session-body-inner li {
+            padding: 0.35rem 0;
+            padding-left: 1.25rem;
+            position: relative;
+            color: var(--text-muted);
+        }
+
+        .session-body-inner li::before {
+            content: '>';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .session-body-inner a {
+            color: var(--text);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(233, 69, 96, 0.3);
+            transition: border-color 0.3s, color 0.3s;
+        }
+
+        .session-body-inner a:hover {
+            color: var(--accent-light);
+            border-color: var(--accent-light);
+        }
+
+        .homework-tag {
+            display: inline-block;
+            background: rgba(245, 197, 24, 0.12);
+            color: var(--gold);
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            margin-top: 0.75rem;
+            border: 1px solid rgba(245, 197, 24, 0.2);
+        }
+
+        /* ADDITIONAL RESOURCES */
+        .resources-section {
+            background: var(--surface);
+            padding: 4rem 2rem;
+        }
+
+        .resources-section .inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .resources-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .resource-card {
+            background: var(--primary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(233, 69, 96, 0.1);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(233, 69, 96, 0.3);
+        }
+
+        .resource-card a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .resource-card a:hover {
+            color: var(--accent-light);
+        }
+
+        .resource-card .author {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(233, 69, 96, 0.1);
+        }
+
+        footer .quote {
+            font-style: italic;
+            color: var(--gold);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            nav .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(26, 26, 46, 0.98);
+                flex-direction: column;
+                padding: 1rem 2rem;
+                border-bottom: 1px solid rgba(233, 69, 96, 0.2);
+            }
+
+            nav .nav-links.open {
+                display: flex;
+            }
+
+            .progress-track {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                justify-content: center;
+            }
+
+            .progress-track::before {
+                display: none;
+            }
+
+            .session-body-inner {
+                padding-left: 2rem;
+            }
+
+            .session-header {
+                padding: 1.25rem 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-inner">
+            <div class="logo">ENG LEADERSHIP</div>
+            <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle navigation">&#9776;</button>
+            <ul class="nav-links">
+                <li><a href="#sessions">Sessions</a></li>
+                <li><a href="#resources">Resources</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Engineering Leadership</h1>
+            <p>Becoming an Engineering Manager is a significant career inflection point. Rather than being the expert in a particular language or framework, you shift focus to achieving goals by building and leading a healthy team.</p>
+            <p>Over 13 sessions, we'll tackle key skills necessary as an Engineering Manager &mdash; from developing allies and investing in your team, to capacity planning and building a strong culture.</p>
+            <div class="quote">"Leadership is a journey. There is always time for more books."</div>
+            <a href="#sessions" class="scroll-cue">&#8595;</a>
+        </div>
+    </section>
+
+    <section class="progress-section">
+        <h2>Your Journey</h2>
+        <div class="progress-track">
+            <a class="progress-dot" href="#session-1" title="Session 1">1</a>
+            <a class="progress-dot" href="#session-2" title="Session 2">2</a>
+            <a class="progress-dot" href="#session-3" title="Session 3">3</a>
+            <a class="progress-dot" href="#session-4" title="Session 4">4</a>
+            <a class="progress-dot" href="#session-5" title="Session 5">5</a>
+            <a class="progress-dot" href="#session-6" title="Session 6">6</a>
+            <a class="progress-dot" href="#session-7" title="Session 7">7</a>
+            <a class="progress-dot" href="#session-8" title="Session 8">8</a>
+            <a class="progress-dot" href="#session-9" title="Session 9">9</a>
+            <a class="progress-dot" href="#session-10" title="Session 10">10</a>
+            <a class="progress-dot" href="#session-11" title="Session 11">11</a>
+            <a class="progress-dot" href="#session-12" title="Session 12">12</a>
+        </div>
+    </section>
+
+    <section class="sessions" id="sessions">
+        <h2>The Curriculum</h2>
+
+        <!-- Session 1 -->
+        <div class="session-card" id="session-1">
+            <div class="session-header" onclick="toggleSession(this)">
+                <div class="session-number">01</div>
+                <div class="session-title">Intro to Engineering Management</div>
+                <div class="session-toggle">+</div>
+            </div>
+            <div class="session-body">
+                <div class="session-body-inner">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://www.amazon.com/Dichotomy-Leadership-Babin-Jocko-Willink/dp/1250247101" target="_blank"><em>The Dichotomy of Leadership</em></a> &mdash; Jocko Willink &amp; Leif Babin</li>
+                        <li><a href="https://www.amazon.com/Managers-Path-Leaders-Navigating-Growth/dp/1491973897" target="_blank"><em>The Manager's Path</em></a> &mdash; Camille Fournier</li>
+                    </ul>
+                    <div class="homework-tag">Homework: Set up a meeting with a stakeholder or a person on a team upstream or downstream of yours.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Session 2 -->
+        <div class="session-card" id="session-2">
+            <div class="session-header" onclick="toggleSession(this)">
+                <div class="session-number">02</div>
+                <div class="session-title">Developing Allies</div>
+                <div class="session-toggle">+</div>
+            </div>
+            <div class="session-body">
+                <div class="session-body-inner">
+                    <h4>Tools</h4>
+                    <ul>
+                        <li><a href="https://www.notion.so/Cross-Functional-1-1s-ca6db443897149e5ae8ae48906d9b82b" target="_blank">Cross-functional 1:1s</a></li>
+                        <li><a href="https://www.pon.harvard.edu/category/daily/win-win-daily/" target="_blank">Win-Win Leverage</a></li>
+                    </ul>
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://www.amazon.com/Women-Marshall-Goldsmith-author-Helgesen/dp/0316418226" target="_blank"><em>How Women Rise</em></a> &mdash; Sally Helgesen &amp; Marshall Goldsmith</li>
+                        <li><a href="https://www.amazon.com/First-90-Days-Strategies-Getting/dp/B08XLGG9HV" target="_blank"><em>First 90 Days</em></a> &mdash; Michael Watkins</li>
+                    </ul>
+                    <div class="homework-tag">Homework: Set up a stakeholder meeting.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Session 3 -->
+        <div class="session-card" id="session-3">
+            <div class="session-header" onclick="toggleSession(this)">
+                <div class="session-number">03</div>
+                <div class="session-title">Investing in Your Team</div>
+                <div class="session-toggle">+</div>
+            </div>
+            <div class="session-body">
+                <div class="session-body-inner">
+                    <h4>Tools</h4>
+                    <ul>
+                        <li><a href="https://www.notion.so/Skills-Assessment-c43684336489498ca53b771f48342264" target="_blank">Skills Measurement / Self-Assessment Spreadsheet</a></li>
+                        <li><a href="https://www.notion.so/Performance-Review-b3166098a2ce4898b58a5b5a5627e602" target="_blank">Individual Development Plan Template</a></li>
+                    </ul>
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://www.amazon.com/Mindset-Psychology-Carol-S-Dweck/dp/0345472322" target="_blank"><em>Mindset</em></a> &mdash; Carol S. Dweck</li>
+                        <li><a href="https://www.amazon.com/Grit-Passion-Perseverance-Angela-Duckworth/dp/1501111116" target="_blank"><em>Grit</em></a> &mdash; Angela Duckworth</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Session 4 -->
+        <div class="session-card" id="session-4">
+            <div class="session-header" onclick="toggleSession(this)">
+                <div class="session-number">04</div>
+                <div class="session-title">The Art of Hard Conversations</div>
+                <div class="session-toggle">+</div>
+            </div>
+            <div class="session-body">
+                <div class="session-body-inner">
+                    <h4>Tools</h4>
+                    <ul>
+                        <li><a href="https://vault.com/blogs/career-readiness/3-key-skills-for-effective-communication" target="_blank">Three Communication Skills</a></li>
+                        <li>Thought / Fear / Hope Framework</li>
+                    </ul>
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://www.amazon.com/Chief-Inspiration-Officer-Everyone-Wants/dp/1645438988" target="_blank"><em>Chief Inspiration Officer</em></a> &mdash; Val Ries</li>
+                    </ul>
+                    <div class="homework-tag">Homework: Develop a PIP for a direct report.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Session 5 -->
+        <div class="session-card" id="session-5">
+            <div class="session-header" onclick="toggleSession(this)">
+                <div class="session-number">05</div>
+                <div class="session-title">Habits of Highly Effective Teams</div>
+                <div class="session-toggle">+</div>
+            </div>
+            <div class="session-body">
+                <div class="session-body-inner">
+                    <h4>Tools</h4>
+                    <ul>
+                        <li><a href="https://www.notion.so/Team-Working-Agreement-Guide-428214693e0d45439c384316a2d8efd5" target="_blank">Team Working Agreement</a></li>
+                    </ul>
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://www.amazon.com/Unicorn-Project-Developers-Disruption-Thriving/dp/1942788762" target="_blank"><em>The Unicorn Project</em></a> &mdash; Gene Kim</li>
+                    </ul>
+                    <div class="homework-tag">Homework: Create a Team Working Agreement for your own team.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Session 6 -->
+        <div class="session-card" id="session-6">
+            <div class="session-header" onclick="toggleSession(this)">
+                <div class="session-number">06</div>
+                <div class="session-title">Aligning to Business Outcomes</div>
+                <div class="session-toggle">+</div>
+            </div>
+            <div class="session-body">
+                <div class="session-body-inner">
+                    <h4>Tools</h4>
+                    <ul>
+                        <li><a href="https://www.notion.so/OKRs-c8dce04ba3b54deb9cd857cc6bea80b6" target="_blank">OKRs</a></li>
+                    </ul>
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://www.amazon.com/Measure-What-Matters-Google-Foundation/dp/0525536221" target="_blank"><em>Measure What Matters</em></a> &mdash; John Doerr</li>
+                        <li><a href="https://www.amazon.com/Lean-Startup-Entrepreneurs-Continuous-Innovation/dp/0670921602" target="_blank"><em>The Lean Startup</em></a> &mdash; Eric Ries</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Session 7 -->
+        <div class="session-card" id="session-7">
+            <div class="session-header" onclick="toggleSession(this)">
+                <div class="session-number">07</div>
+                <div class="session-title">Building a Roadmap</div>
+                <div class="session-toggle">+</div>
+            </div>
+            <div class="session-body">
+                <div class="session-body-inner">
+                    <h4>Tools</h4>
+                    <ul>
+                        <li>Estimation and Sequencing</li>
+                    </ul>
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://www.notion.so/Agile-Roadmap-9e2cce6aacd547abbfb7557252c54ed6" target="_blank">Agile Roadmaps</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Session 8 -->
+        <div class="session-card" id="session-8">
+            <div class="session-header" onclick="toggleSession(this)">
+                <div class="session-number">08</div>
+                <div class="session-title">Managing Large Initiatives</div>
+                <div class="session-toggle">+</div>
+            </div>
+            <div class="session-body">
+                <div class="session-body-inner">
+                    <h4>Tools</h4>
+                    <ul>
+                        <li>Dependency Roadmaps &amp; Best Practices</li>
+                    </ul>
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://bulkbookstore.com/team-of-teams-new-rules-of-engagement-for-a-complex-world-9781591847489" target="_blank"><em>Team of Teams</em></a> &mdash; General Stanley McChrystal</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Session 9 -->
+        <div class="session-card" id="session-9">
+            <div class="session-header" onclick="toggleSession(this)">
+                <div class="session-number">09</div>
+                <div class="session-title">Capacity Planning</div>
+                <div class="session-toggle">+</div>
+            </div>
+            <div class="session-body">
+                <div class="session-body-inner">
+                    <h4>Tools</h4>
+                    <ul>
+                        <li><a href="https://www.notion.so/Capacity-Planning-b49b55f57b9a44829c6b28eed71992be" target="_blank">Capacity Planning Spreadsheet</a></li>
+                    </ul>
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://www.amazon.com/Mythical-Man-Month-Software-Engineering-Anniversary/dp/0201835959" target="_blank"><em>Mythical Man-Month</em></a> &mdash; Frederick Brooks, Jr.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Session 10 -->
+        <div class="session-card" id="session-10">
+            <div class="session-header" onclick="toggleSession(this)">
+                <div class="session-number">10</div>
+                <div class="session-title">Delivery Health</div>
+                <div class="session-toggle">+</div>
+            </div>
+            <div class="session-body">
+                <div class="session-body-inner">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://www.amazon.com/High-Output-Management-Andrew-Grove/dp/0679762884" target="_blank"><em>High Output Management</em></a> &mdash; Andy Grove</li>
+                        <li><a href="https://www.amazon.com/Ask-Your-Developer-Software-Developers/dp/0063018292" target="_blank"><em>Ask Your Developer</em></a> &mdash; Jeff Lawson</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Session 11 -->
+        <div class="session-card" id="session-11">
+            <div class="session-header" onclick="toggleSession(this)">
+                <div class="session-number">11</div>
+                <div class="session-title">Building a Strong Micro-Culture</div>
+                <div class="session-toggle">+</div>
+            </div>
+            <div class="session-body">
+                <div class="session-body-inner">
+                    <h4>Tools</h4>
+                    <ul>
+                        <li><a href="https://www.notion.so/Real-Ideal-38acb76727e54474b27b6556d6db3f10" target="_blank">Real Ideal</a></li>
+                    </ul>
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://www.amazon.com/Five-Dysfunctions-Team-Leadership-Fable/dp/0787960756" target="_blank"><em>Five Dysfunctions of a Team</em></a> &mdash; Patrick Lencioni</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Session 12 -->
+        <div class="session-card" id="session-12">
+            <div class="session-header" onclick="toggleSession(this)">
+                <div class="session-number">12</div>
+                <div class="session-title">Building to Last</div>
+                <div class="session-toggle">+</div>
+            </div>
+            <div class="session-body">
+                <div class="session-body-inner">
+                    <h4>Tools</h4>
+                    <ul>
+                        <li>Learning Plan</li>
+                    </ul>
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://bulkbookstore.com/dare-to-lead-brave-work-tough-conversations-whole-hearts-9780399592522" target="_blank"><em>Dare to Lead</em></a> &mdash; Bren&eacute; Brown</li>
+                        <li><a href="https://www.amazon.com/Multipliers-Revised-Updated-Leaders-Everyone/dp/0062699172" target="_blank"><em>Multipliers</em></a> &mdash; Liz Wiseman</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="resources-section" id="resources">
+        <div class="inner">
+            <h2>Additional Resources</h2>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <a href="https://www.oreilly.com/library/view/97-things-every/9781492050896/" target="_blank">97 Things Every Engineering Manager Should Know</a>
+                    <div class="author">Compiled by Camille Fournier</div>
+                </div>
+                <div class="resource-card">
+                    <a href="https://www.amazon.com/Elegant-Puzzle-Systems-Engineering-Management/dp/1732265186" target="_blank">An Elegant Puzzle</a>
+                    <div class="author">Will Larson</div>
+                </div>
+                <div class="resource-card">
+                    <a href="https://www.amazon.com/Team-Topologies-Organizing-Business-Technology/dp/1942788819" target="_blank">Team Topologies</a>
+                    <div class="author">Manuel Pais &amp; Matthew Skelton</div>
+                </div>
+                <div class="resource-card">
+                    <a href="https://www.honeycomb.io/blog/an-engineering-managers-bill-of-rights-and-responsibilities/" target="_blank">An Engineering Manager's Bill of Rights (and Responsibilities)</a>
+                    <div class="author">Honeycomb Blog</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="quote">"Leadership is a journey. There is always time for more books."</div>
+        <p>Engineering Leadership Program</p>
+    </footer>
+
+    <script>
+        function toggleSession(header) {
+            const card = header.parentElement;
+            const body = card.querySelector('.session-body');
+            const isOpen = card.classList.contains('open');
+
+            // Close all
+            document.querySelectorAll('.session-card.open').forEach(c => {
+                c.classList.remove('open');
+                c.querySelector('.session-body').style.maxHeight = null;
+            });
+
+            // Open clicked (if it was closed)
+            if (!isOpen) {
+                card.classList.add('open');
+                body.style.maxHeight = body.scrollHeight + 'px';
+            }
+        }
+
+        // Intersection observer for fade-in
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.session-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease, border-color 0.3s, box-shadow 0.3s';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
