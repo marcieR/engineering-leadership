@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skills Assessment Tool</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .checkbox-btn {
+      transition: all 0.2s;
+    }
+    .checkbox-btn:hover {
+      transform: scale(1.05);
+    }
+    .category-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    .category-content.expanded {
+      max-height: 10000px;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 min-h-screen p-4">
+  <div class="max-w-6xl mx-auto py-8">
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <h1 class="text-5xl font-black text-white mb-3 drop-shadow-lg">Skills Assessment Tool</h1>
+      <p class="text-xl text-white/90">Evaluate your competencies, favorites, and growth areas</p>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="bg-white rounded-2xl shadow-xl p-6 mb-6">
+      <div class="grid grid-cols-3 gap-4 text-center">
+        <div>
+          <div id="stat-competent" class="text-3xl font-black text-green-600">0</div>
+          <div class="text-sm font-semibold text-gray-600">Feel Competent</div>
+        </div>
+        <div>
+          <div id="stat-enjoy" class="text-3xl font-black text-purple-600">0</div>
+          <div class="text-sm font-semibold text-gray-600">Enjoy/Favorites</div>
+        </div>
+        <div>
+          <div id="stat-develop" class="text-3xl font-black text-blue-600">0</div>
+          <div class="text-sm font-semibold text-gray-600">Want to Develop</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex gap-3 mb-6 flex-wrap">
+      <button onclick="toggleSummary()" class="bg-gradient-to-r from-orange-500 to-pink-500 text-white font-bold px-6 py-2 rounded-lg hover:from-orange-600 hover:to-pink-600 transition-all shadow-lg">
+        <span id="summary-btn-text">View Summary Report</span>
+      </button>
+      <button onclick="expandAll()" class="bg-white text-purple-600 font-semibold px-4 py-2 rounded-lg hover:bg-purple-50 transition-all">
+        Expand All
+      </button>
+      <button onclick="collapseAll()" class="bg-white text-purple-600 font-semibold px-4 py-2 rounded-lg hover:bg-purple-50 transition-all">
+        Collapse All
+      </button>
+      <button onclick="exportData()" class="bg-white text-green-600 font-semibold px-4 py-2 rounded-lg hover:bg-green-50 transition-all flex items-center gap-2">
+        <span>📥</span> Export Results
+      </button>
+      <button onclick="resetAll()" class="bg-white text-red-600 font-semibold px-4 py-2 rounded-lg hover:bg-red-50 transition-all flex items-center gap-2">
+        <span>🔄</span> Reset All
+      </button>
+    </div>
+
+    <!-- Summary Report -->
+    <div id="summary-report" class="bg-white rounded-2xl shadow-xl p-8 mb-6 hidden">
+      <h2 class="text-3xl font-black bg-gradient-to-r from-orange-600 to-pink-600 bg-clip-text text-transparent mb-6">
+        📊 Summary Report
+      </h2>
+
+      <!-- Key Insights -->
+      <div class="grid md:grid-cols-2 gap-6 mb-8">
+        <!-- Your Strengths -->
+        <div class="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl p-6">
+          <h3 class="text-xl font-bold text-green-700 mb-3">
+            💪 Your Strengths
+            <span class="text-sm font-normal text-green-600">(Competent + Enjoy)</span>
+          </h3>
+          <div id="strengths-list" class="space-y-2"></div>
+        </div>
+
+        <!-- Development Priorities -->
+        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl p-6">
+          <h3 class="text-xl font-bold text-blue-700 mb-3">
+            🎯 Development Priorities
+            <span class="text-sm font-normal text-blue-600">(Want to Develop but Not Yet Competent)</span>
+          </h3>
+          <div id="priorities-list" class="space-y-2"></div>
+        </div>
+      </div>
+
+      <!-- Full Breakdown -->
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="border-2 border-green-200 rounded-xl p-6">
+          <h3 class="text-lg font-bold text-green-700 mb-3">
+            ✅ All Competent Skills (<span id="all-competent-count">0</span>)
+          </h3>
+          <div id="all-competent-list" class="space-y-2 max-h-64 overflow-y-auto"></div>
+        </div>
+
+        <div class="border-2 border-purple-200 rounded-xl p-6">
+          <h3 class="text-lg font-bold text-purple-700 mb-3">
+            ❤️ Skills You Enjoy (<span id="all-enjoy-count">0</span>)
+          </h3>
+          <div id="all-enjoy-list" class="space-y-2 max-h-64 overflow-y-auto"></div>
+        </div>
+
+        <div class="border-2 border-blue-200 rounded-xl p-6">
+          <h3 class="text-lg font-bold text-blue-700 mb-3">
+            📚 Want to Develop (<span id="all-develop-count">0</span>)
+          </h3>
+          <div id="all-develop-list" class="space-y-2 max-h-64 overflow-y-auto"></div>
+        </div>
+      </div>
+
+      <!-- Recommendations -->
+      <div id="recommendations" class="mt-8 bg-gradient-to-r from-purple-50 to-pink-50 border-2 border-purple-200 rounded-xl p-6 hidden">
+        <h3 class="text-xl font-bold text-purple-700 mb-4">💡 Recommendations</h3>
+        <ul id="recommendations-list" class="space-y-2 text-gray-700"></ul>
+      </div>
+    </div>
+
+    <!-- Categories Container -->
+    <div id="categories-container" class="space-y-4"></div>
+
+    <!-- Instructions -->
+    <div class="mt-8 bg-white/90 rounded-2xl p-6">
+      <h3 class="font-bold text-gray-800 mb-3">Instructions:</h3>
+      <ol class="space-y-2 text-gray-700">
+        <li><strong>Feel Competent:</strong> Mark skills you already have and feel confident using</li>
+        <li><strong>Enjoy/Favorites:</strong> Mark skills you really enjoy, even if you're not yet proficient</li>
+        <li><strong>Want to Develop:</strong> Mark skills you'd like to learn or improve</li>
+      </ol>
+    </div>
+  </div>
+
+  <script>
+    const skillsData = [
+      {
+        category: "Scrum & Team Facilitation",
+        skills: [
+          "Write, edit, translate or critique words",
+          "Taking Notes while someone speaks",
+          "Organizing Team Meetings",
+          "Assigning Action Items as a result of a retro",
+          "Following up with others about retro items",
+          "Running Scrum Ceremonies"
+        ]
+      },
+      {
+        category: "Management and Self-Management Skills",
+        skills: [
+          "Speaking up for yourself",
+          "Seeking help when needed",
+          "Being eager to learn",
+          "Solving problems in a cooperative way",
+          "Checking your own work",
+          "Using courtesy when dealing with others",
+          "Presenting a neat and professional image",
+          "Following the rules",
+          "Prioritizing tasks so that the larger goal is met on time",
+          "Helping motivate others to get the job done",
+          "Motivating myself to do what needs to get done",
+          "Knowing how to take directions",
+          "Offering to help when it's needed",
+          "Getting interested/excited about the task at hand",
+          "Being patient with others",
+          "Initiate, assess needs, anticipate or create change",
+          "Administer, set goals and priorities, plan or make decisions",
+          "Manage people, delegate tasks, direct, oversee or motivate",
+          "Sell, negotiate, convince, promote or persuade"
+        ]
+      },
+      {
+        category: "People and Social Skills",
+        skills: [
+          "Calming people down",
+          "Teach, train, instruct, inform or explain to groups",
+          "Problem-solve, mediate or network with people",
+          "Plan social, recreational or other group events",
+          "Counsel, empower, coach, guide or listen to individuals",
+          "Leading groups or activities",
+          "Helping people complete a task"
+        ]
+      },
+      {
+        category: "Critical Thinking",
+        skills: [
+          "Analyze, use logic, problem solve, examine",
+          "Conceptualize, adapt, develop, hypothesize or discover"
+        ]
+      },
+      {
+        category: "Technical Skills - Backend Fundamentals",
+        skills: [
+          "Asynchronous programming (callbacks, promises, async/await)",
+          "Event loop and non-blocking I/O",
+          "Streams and buffers",
+          "File system operations",
+          "Process and child processes",
+          "Error handling and debugging",
+          "Module system (CommonJS vs ES modules)",
+          "Performance profiling and optimization"
+        ]
+      },
+      {
+        category: "Technical Skills - NestJS Framework",
+        skills: [
+          "Dependency injection and IoC containers",
+          "Controllers and routing",
+          "Providers and services",
+          "Modules and module organization",
+          "Middleware, guards, and interceptors",
+          "Pipes and validation (class-validator, class-transformer)",
+          "Exception filters and error handling",
+          "Custom decorators",
+          "Microservices architecture",
+          "WebSockets and real-time communication",
+          "Authentication and authorization (JWT, Identity)"
+        ]
+      },
+      {
+        category: "Technical Skills - .NET/C# Backend",
+        skills: [
+          "C# language fundamentals",
+          "ASP.NET Core Web API",
+          "Dependency injection in .NET",
+          "Middleware pipeline",
+          "Entity Framework Core (ORM)",
+          "Model validation and data annotations",
+          "Exception handling and filters",
+          "Background services and hosted services",
+          "Configuration and options pattern",
+          "Performance optimization and async programming"
+        ]
+      },
+      {
+        category: "Technical Skills - Database & Data Management",
+        skills: [
+          "Database design and normalization",
+          "Complex queries (joins, subqueries, CTEs)",
+          "Indexing strategies and query optimization",
+          "Transactions and ACID principles",
+          "Stored procedures and functions",
+          "Database migrations and version control"
+        ]
+      },
+      {
+        category: "Communication",
+        skills: [
+          "Technical documentation writing",
+          "Explaining technical concepts to non-technical stakeholders",
+          "Writing clean, maintainable code",
+          "Code reviews and peer feedback"
+        ]
+      }
+    ];
+
+    let assessments = {};
+    let expandedCategories = new Set([0]);
+
+    function init() {
+      skillsData.forEach((cat, catIdx) => {
+        cat.skills.forEach((skill, skillIdx) => {
+          const key = `${catIdx}-${skillIdx}`;
+          assessments[key] = { competent: false, enjoy: false, develop: false };
+        });
+      });
+      renderCategories();
+      updateStats();
+    }
+
+    function renderCategories() {
+      const container = document.getElementById('categories-container');
+      container.innerHTML = '';
+
+      skillsData.forEach((category, catIdx) => {
+        const isExpanded = expandedCategories.has(catIdx);
+
+        const categoryDiv = document.createElement('div');
+        categoryDiv.className = 'bg-white rounded-2xl shadow-xl overflow-hidden';
+
+        categoryDiv.innerHTML = `
+          <button onclick="toggleCategory(${catIdx})" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-4 px-6 text-left flex items-center justify-between hover:from-purple-700 hover:to-pink-700 transition-all">
+            <span class="text-lg">${category.category}</span>
+            <span class="text-2xl">${isExpanded ? '−' : '+'}</span>
+          </button>
+          <div class="category-content ${isExpanded ? 'expanded' : ''}" id="category-${catIdx}">
+            <div class="p-6">
+              ${category.skills.map((skill, skillIdx) => {
+                const key = `${catIdx}-${skillIdx}`;
+                const assessment = assessments[key];
+                return `
+                  <div class="py-4 border-b border-gray-100 hover:bg-gray-50 transition-all">
+                    <div class="text-gray-800 font-medium mb-3">${skill}</div>
+                    <div class="flex gap-6 flex-wrap">
+                      <label class="flex items-center gap-2 cursor-pointer">
+                        <button onclick="toggleCheckbox(${catIdx}, ${skillIdx}, 'competent')" class="checkbox-btn w-6 h-6 rounded-lg border-2 transition-all flex items-center justify-center ${assessment.competent ? 'bg-green-500 border-green-500' : 'border-gray-300 hover:border-green-400'}">
+                          ${assessment.competent ? '<span class="text-white text-sm">✓</span>' : ''}
+                        </button>
+                        <span class="text-sm font-semibold text-green-600">Feel Competent</span>
+                      </label>
+
+                      <label class="flex items-center gap-2 cursor-pointer">
+                        <button onclick="toggleCheckbox(${catIdx}, ${skillIdx}, 'enjoy')" class="checkbox-btn w-6 h-6 rounded-lg border-2 transition-all flex items-center justify-center ${assessment.enjoy ? 'bg-purple-500 border-purple-500' : 'border-gray-300 hover:border-purple-400'}">
+                          ${assessment.enjoy ? '<span class="text-white text-sm">✓</span>' : ''}
+                        </button>
+                        <span class="text-sm font-semibold text-purple-600">Enjoy/Favorites</span>
+                      </label>
+
+                      <label class="flex items-center gap-2 cursor-pointer">
+                        <button onclick="toggleCheckbox(${catIdx}, ${skillIdx}, 'develop')" class="checkbox-btn w-6 h-6 rounded-lg border-2 transition-all flex items-center justify-center ${assessment.develop ? 'bg-blue-500 border-blue-500' : 'border-gray-300 hover:border-blue-400'}">
+                          ${assessment.develop ? '<span class="text-white text-sm">✓</span>' : ''}
+                        </button>
+                        <span class="text-sm font-semibold text-blue-600">Want to Develop</span>
+                      </label>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+
+        container.appendChild(categoryDiv);
+      });
+    }
+
+    function toggleCategory(catIdx) {
+      if (expandedCategories.has(catIdx)) {
+        expandedCategories.delete(catIdx);
+      } else {
+        expandedCategories.add(catIdx);
+      }
+      renderCategories();
+    }
+
+    function toggleCheckbox(catIdx, skillIdx, field) {
+      const key = `${catIdx}-${skillIdx}`;
+      assessments[key][field] = !assessments[key][field];
+      renderCategories();
+      updateStats();
+      if (document.getElementById('summary-report').classList.contains('hidden') === false) {
+        updateSummary();
+      }
+    }
+
+    function updateStats() {
+      let competent = 0, enjoy = 0, develop = 0;
+      Object.values(assessments).forEach(a => {
+        if (a.competent) competent++;
+        if (a.enjoy) enjoy++;
+        if (a.develop) develop++;
+      });
+
+      document.getElementById('stat-competent').textContent = competent;
+      document.getElementById('stat-enjoy').textContent = enjoy;
+      document.getElementById('stat-develop').textContent = develop;
+    }
+
+    function expandAll() {
+      expandedCategories = new Set(skillsData.map((_, idx) => idx));
+      renderCategories();
+    }
+
+    function collapseAll() {
+      expandedCategories = new Set();
+      renderCategories();
+    }
+
+    function resetAll() {
+      if (confirm('Are you sure you want to reset all assessments?')) {
+        skillsData.forEach((cat, catIdx) => {
+          cat.skills.forEach((skill, skillIdx) => {
+            const key = `${catIdx}-${skillIdx}`;
+            assessments[key] = { competent: false, enjoy: false, develop: false };
+          });
+        });
+        renderCategories();
+        updateStats();
+        if (document.getElementById('summary-report').classList.contains('hidden') === false) {
+          updateSummary();
+        }
+      }
+    }
+
+    function exportData() {
+      const results = [];
+      skillsData.forEach((cat, catIdx) => {
+        cat.skills.forEach((skill, skillIdx) => {
+          const key = `${catIdx}-${skillIdx}`;
+          const assessment = assessments[key];
+          if (assessment.competent || assessment.enjoy || assessment.develop) {
+            results.push({
+              category: cat.category,
+              skill,
+              competent: assessment.competent,
+              enjoy: assessment.enjoy,
+              develop: assessment.develop
+            });
+          }
+        });
+      });
+
+      const json = JSON.stringify(results, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'skills-assessment.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function toggleSummary() {
+      const summaryDiv = document.getElementById('summary-report');
+      const btnText = document.getElementById('summary-btn-text');
+
+      if (summaryDiv.classList.contains('hidden')) {
+        summaryDiv.classList.remove('hidden');
+        btnText.textContent = 'Hide Summary Report';
+        updateSummary();
+      } else {
+        summaryDiv.classList.add('hidden');
+        btnText.textContent = 'View Summary Report';
+      }
+    }
+
+    function updateSummary() {
+      const summary = {
+        competent: [],
+        enjoy: [],
+        develop: [],
+        strengths: [],
+        priorities: []
+      };
+
+      skillsData.forEach((cat, catIdx) => {
+        cat.skills.forEach((skill, skillIdx) => {
+          const key = `${catIdx}-${skillIdx}`;
+          const assessment = assessments[key];
+
+          if (assessment.competent) {
+            summary.competent.push({ category: cat.category, skill });
+          }
+          if (assessment.enjoy) {
+            summary.enjoy.push({ category: cat.category, skill });
+          }
+          if (assessment.develop) {
+            summary.develop.push({ category: cat.category, skill });
+          }
+          if (assessment.competent && assessment.enjoy) {
+            summary.strengths.push({ category: cat.category, skill });
+          }
+          if (!assessment.competent && assessment.develop) {
+            summary.priorities.push({ category: cat.category, skill });
+          }
+        });
+      });
+
+      // Update strengths
+      const strengthsList = document.getElementById('strengths-list');
+      if (summary.strengths.length === 0) {
+        strengthsList.innerHTML = '<p class="text-gray-500 italic">No strengths identified yet</p>';
+      } else {
+        const items = summary.strengths.slice(0, 10).map(item =>
+          `<div class="text-sm"><span class="font-semibold text-green-700">${item.skill}</span><span class="text-green-600 text-xs ml-2">(${item.category})</span></div>`
+        ).join('');
+        const more = summary.strengths.length > 10 ? `<p class="text-sm text-green-600 italic">+ ${summary.strengths.length - 10} more...</p>` : '';
+        strengthsList.innerHTML = items + more;
+      }
+
+      // Update priorities
+      const prioritiesList = document.getElementById('priorities-list');
+      if (summary.priorities.length === 0) {
+        prioritiesList.innerHTML = '<p class="text-gray-500 italic">No priorities identified yet</p>';
+      } else {
+        const items = summary.priorities.slice(0, 10).map(item =>
+          `<div class="text-sm"><span class="font-semibold text-blue-700">${item.skill}</span><span class="text-blue-600 text-xs ml-2">(${item.category})</span></div>`
+        ).join('');
+        const more = summary.priorities.length > 10 ? `<p class="text-sm text-blue-600 italic">+ ${summary.priorities.length - 10} more...</p>` : '';
+        prioritiesList.innerHTML = items + more;
+      }
+
+      // Update all competent
+      document.getElementById('all-competent-count').textContent = summary.competent.length;
+      const allCompetentList = document.getElementById('all-competent-list');
+      if (summary.competent.length === 0) {
+        allCompetentList.innerHTML = '<p class="text-gray-400 italic text-sm">None selected</p>';
+      } else {
+        allCompetentList.innerHTML = summary.competent.map(item =>
+          `<div class="text-sm text-gray-700">• ${item.skill}</div>`
+        ).join('');
+      }
+
+      // Update all enjoy
+      document.getElementById('all-enjoy-count').textContent = summary.enjoy.length;
+      const allEnjoyList = document.getElementById('all-enjoy-list');
+      if (summary.enjoy.length === 0) {
+        allEnjoyList.innerHTML = '<p class="text-gray-400 italic text-sm">None selected</p>';
+      } else {
+        allEnjoyList.innerHTML = summary.enjoy.map(item =>
+          `<div class="text-sm text-gray-700">• ${item.skill}</div>`
+        ).join('');
+      }
+
+      // Update all develop
+      document.getElementById('all-develop-count').textContent = summary.develop.length;
+      const allDevelopList = document.getElementById('all-develop-list');
+      if (summary.develop.length === 0) {
+        allDevelopList.innerHTML = '<p class="text-gray-400 italic text-sm">None selected</p>';
+      } else {
+        allDevelopList.innerHTML = summary.develop.map(item =>
+          `<div class="text-sm text-gray-700">• ${item.skill}</div>`
+        ).join('');
+      }
+
+      // Update recommendations
+      const recommendationsDiv = document.getElementById('recommendations');
+      const recommendationsList = document.getElementById('recommendations-list');
+
+      if (summary.strengths.length > 0 || summary.priorities.length > 0) {
+        recommendationsDiv.classList.remove('hidden');
+        let recs = [];
+
+        if (summary.strengths.length > 0) {
+          recs.push(`<li><strong>Leverage your strengths:</strong> You have ${summary.strengths.length} skills you're both competent in and enjoy. Consider mentoring others or taking on projects that utilize these skills.</li>`);
+        }
+        if (summary.priorities.length > 0) {
+          recs.push(`<li><strong>Focus on priorities:</strong> You've identified ${summary.priorities.length} skills to develop. Start with 2-3 that align with your current role or career goals.</li>`);
+        }
+        if (summary.competent.length > summary.enjoy.length) {
+          recs.push(`<li><strong>Find your passion:</strong> You're competent in many areas but enjoy fewer. Explore which skills bring you the most satisfaction.</li>`);
+        }
+
+        recommendationsList.innerHTML = recs.join('');
+      } else {
+        recommendationsDiv.classList.add('hidden');
+      }
+    }
+
+    // Initialize on page load
+    init();
+  </script>
+</body>
+</html>
