@@ -89,7 +89,7 @@ Over the next 13 sessions, we’ll tackle some of the key skills necessary as an
 
 **Date:** 
 
-1. **Tool:** [Capacity Planning Spreadsheet](https://www.notion.so/Capacity-Planning-b49b55f57b9a44829c6b28eed71992be?pvs=21)
+1. **Tool:** [Capacity Planning Spreadsheet](https://marcier.github.io/engineering-leadership/capacity-planning/)
 2. **Resource:** [Mythical Man-Month by Frederick Brooks, Jr.](https://www.amazon.com/Mythical-Man-Month-Software-Engineering-Anniversary/dp/0201835959/ref=asc_df_0201835959/?tag=hyprod-20&linkCode=df0&hvadid=312091457223&hvpos=&hvnetw=g&hvrand=2789736665559606188&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9016077&hvtargid=pla-434012227386&psc=1&mcid=4ebe5ca592773f36964eeb22ecffc391&tag=&ref=&adgrpid=62820903995&hvpone=&hvptwo=&hvadid=312091457223&hvpos=&hvnetw=g&hvrand=2789736665559606188&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9016077&hvtargid=pla-434012227386&gclid=CjwKCAiA-P-rBhBEEiwAQEXhHwb4albfc1xNn5TZWuVty9WGBchljuTcOvwW7LWmXx7_S0fZQYYTXhoCGacQAvD_BwE)
 
 # Session Ten: Delivery Health
