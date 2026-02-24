@@ -23,7 +23,7 @@ Over the next 13 sessions, we’ll tackle some of the key skills necessary as an
 
 **Date:** 
 
-1. **Tool:** [Cross-functional 1:1s](https://www.notion.so/Cross-Functional-1-1s-ca6db443897149e5ae8ae48906d9b82b?pvs=21), [Win-Win Leverage](https://www.pon.harvard.edu/category/daily/win-win-daily/)
+1. **Tool:** [Cross-functional 1:1s](https://marcier.github.io/engineering-leadership/cross-functional/), [Win-Win Leverage](https://www.pon.harvard.edu/category/daily/win-win-daily/)
 2. **Resources:**
     1. [*How Women Rise* by Sally Helgesen and Marshall Goldsmith](https://www.amazon.com/Women-Marshall-Goldsmith-author-Helgesen/dp/0316418226/ref=asc_df_0316418226/?tag=hyprod-20&linkCode=df0&hvadid=312425492373&hvpos=&hvnetw=g&hvrand=11255512632054533812&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9016077&hvtargid=pla-474227071132&psc=1&mcid=2d3644dca5aa385cb8242df3a2e85324&gclid=CjwKCAiA-P-rBhBEEiwAQEXhH_AR_9D3Mc0mjwaeHrJeIlPLfecdqU9vXCdJ1yYGpCD-CxspgfjZ9RoCqHMQAvD_BwE)
     2. [*First 90 Days* by Michael Watkins](https://www.amazon.com/First-90-Days-Strategies-Getting/dp/B08XLGG9HV/ref=asc_df_B08XLGG9HV/?tag=hyprod-20&linkCode=df0&hvadid=632085709568&hvpos=&hvnetw=g&hvrand=17721456136537361588&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9016077&hvtargid=pla-1927542113201&psc=1&mcid=516a5c9a72043749ab81686daec254e5&gclid=CjwKCAiA-P-rBhBEEiwAQEXhHyFOQgJeKAB9ovWM3AM_aVt5eMKkImWpY3hF1rpzs9Pvg3E7nN2suBoCc2YQAvD_BwE)
@@ -34,7 +34,7 @@ Over the next 13 sessions, we’ll tackle some of the key skills necessary as an
 **Date:**  
 
 1. **Tools:**
-    1. [Skills Measurement/Self Assessment Spreadsheet](https://www.notion.so/Skills-Assessment-c43684336489498ca53b771f48342264?pvs=21)
+    1. [Skills Measurement/Self Assessment Spreadsheet](https://marcier.github.io/engineering-leadership/skills-assessement/)
     2. [Individual Development Plan Template](https://www.notion.so/Performance-Review-b3166098a2ce4898b58a5b5a5627e602?pvs=21)
 2. **Resources:**
     1. [*Mindset* by Carol S. Dweck](https://www.amazon.com/Mindset-Psychology-Carol-S-Dweck/dp/0345472322/ref=asc_df_0345472322/?tag=hyprod-20&linkCode=df0&hvadid=312049124368&hvpos=&hvnetw=g&hvrand=13063031847643437492&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9016077&hvtargid=pla-423142297401&psc=1&mcid=da2aa95e496b34569a16a2c9c64da5ff&tag=&ref=&adgrpid=61851652213&hvpone=&hvptwo=&hvadid=312049124368&hvpos=&hvnetw=g&hvrand=13063031847643437492&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9016077&hvtargid=pla-423142297401&gclid=CjwKCAiA-P-rBhBEEiwAQEXhH70Xxoj1goXxc-G-E82fzGDsrpdivPP6r4996gEVPB9E1WypoUhFiRoCufwQAvD_BwE)
@@ -46,7 +46,7 @@ Over the next 13 sessions, we’ll tackle some of the key skills necessary as an
 
 1. **Tools:**
     - [Three Communication Skills](https://vault.com/blogs/career-readiness/3-key-skills-for-effective-communication)
-    - Thought/Fear/Hope
+    - [Thought/Fear/Hope](https://marcier.github.io/engineering-leadership/thought-fear-hope)
 2. **Resources:**
     - [*Chief Inspiration Officer* by Val Ries](https://www.amazon.com/Chief-Inspiration-Officer-Everyone-Wants/dp/1645438988)
 3. **Homework**: Develop a PIP for a direct report
@@ -55,7 +55,7 @@ Over the next 13 sessions, we’ll tackle some of the key skills necessary as an
 
 **Date:** 
 
-1. **Tool:** [Team Working Agreement](https://www.notion.so/Team-Working-Agreement-Guide-428214693e0d45439c384316a2d8efd5?pvs=21)
+1. **Tool:** [Team Working Agreement](https://marcier.github.io/engineering-leadership/team-working-agreement)
 2. **Resources:**
     1. [*The Unicorn Project* by Gene Kim](https://www.amazon.com/Unicorn-Project-Developers-Disruption-Thriving/dp/1942788762/ref=asc_df_1942788762/?tag=hyprod-20&linkCode=df0&hvadid=385492364860&hvpos=&hvnetw=g&hvrand=7341261239745159657&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9016077&hvtargid=pla-863236963354&psc=1&mcid=30bb401f67b3300abf13cf0e1bafef39&tag=&ref=&adgrpid=79288121435&hvpone=&hvptwo=&hvadid=385492364860&hvpos=&hvnetw=g&hvrand=7341261239745159657&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9016077&hvtargid=pla-863236963354&gclid=CjwKCAiA-P-rBhBEEiwAQEXhH8xB4jKYSQpIDMSTDZUH8RSY76CKUj_gV5Sb6wVJL0K-oBhRbYoDoxoCr2UQAvD_BwE)
 3. **Homework**: Create a Team Working Agreement for your own team
@@ -64,7 +64,7 @@ Over the next 13 sessions, we’ll tackle some of the key skills necessary as an
 
 **Date:** 
 
-1. **Tool:** [OKRs](https://www.notion.so/OKRs-c8dce04ba3b54deb9cd857cc6bea80b6?pvs=21)
+1. **Tool:** [OKRs](https://marcier.github.io/engineering-leadership/okrs/)
 2. **Resource:**
     1. [Measure What Matters by John Doerr](https://www.amazon.com/Measure-What-Matters-Google-Foundation/dp/0525536221/ref=sr_1_1?hvadid=580696599334&hvdev=c&hvlocphy=9016077&hvnetw=g&hvqmt=e&hvrand=14716319795126194794&hvtargid=kwd-452949015343&hydadcr=22595_13493276&keywords=measure+what+matters+by+john+doerr&qid=1702922091&sr=8-1)
     2. [The Lean Startup by Eric Ries](https://www.amazon.com/Lean-Startup-Entrepreneurs-Continuous-Innovation/dp/0670921602/ref=asc_df_0670921602/?tag=hyprod-20&linkCode=df0&hvadid=312118059795&hvpos=&hvnetw=g&hvrand=11776024471168842057&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9016077&hvtargid=pla-364195445884&psc=1&mcid=36596f63906938e09a67f46c2aa5690d&gclid=CjwKCAiA-P-rBhBEEiwAQEXhH66BKCvZNIvpj0N-K3qyvbtCXRMUXaJAEom0kNFXySTsD5dgBmOViRoCJ2UQAvD_BwE)
@@ -81,7 +81,7 @@ Over the next 13 sessions, we’ll tackle some of the key skills necessary as an
 
 **Date:** 
 
-1. **Tool:** Dependency Roadmaps, Best Practices
+1. **Tool:** [Dependency Roadmaps, Best Practices](https://marcier.github.io/engineering-leadership/dependency-roadmap/)
 2. **Resources:**
     - [Team of Teams by General Stanley McCrystal](https://bulkbookstore.com/team-of-teams-new-rules-of-engagement-for-a-complex-world-9781591847489?gclid=CjwKCAiA-P-rBhBEEiwAQEXhH63Pl18y70lWizy-wJIRo7tgsmG-1z6z5nrBo0cpQrzK4uLJPSVK2xoCXLYQAvD_BwE)
 
@@ -103,7 +103,7 @@ Over the next 13 sessions, we’ll tackle some of the key skills necessary as an
 
 # Session Eleven: Building a Strong Micro-Culture
 
-1. **Tool:** [Real Ideal](https://www.notion.so/Real-Ideal-38acb76727e54474b27b6556d6db3f10?pvs=21)
+1. **Tool:** [Real Ideal](https://marcier.github.io/engineering-leadership/real-ideal/)
 2. **Resources:**
     - [Five Dysfunctions of a Team by Patrick Lencioni](https://www.amazon.com/Five-Dysfunctions-Team-Leadership-Fable/dp/0787960756/ref=asc_df_0787960756/?tag=hyprod-20&linkCode=df0&hvadid=266023323049&hvpos=&hvnetw=g&hvrand=12100270442052566909&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9016077&hvtargid=pla-487653304767&psc=1&mcid=3023c636c1bb3e5393232a284ce60928&gclid=CjwKCAiA-P-rBhBEEiwAQEXhHzyuGtU254n7BnDfnlqw84xO-6osFlRvZipzuG9xHKbn_3iznYuTRRoCo-4QAvD_BwE)
 
