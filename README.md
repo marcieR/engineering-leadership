@@ -34,7 +34,7 @@ Over the next 13 sessions, we’ll tackle some of the key skills necessary as an
 **Date:**  
 
 1. **Tools:**
-    1. [Skills Measurement/Self Assessment Spreadsheet](https://marcier.github.io/engineering-leadership/skills-assessement/)
+    1. [Skills Measurement/Self Assessment Spreadsheet](https://marcier.github.io/engineering-leadership/skills-assessment/)
     2. [Individual Development Plan Template](https://www.notion.so/Performance-Review-b3166098a2ce4898b58a5b5a5627e602?pvs=21)
 2. **Resources:**
     1. [*Mindset* by Carol S. Dweck](https://www.amazon.com/Mindset-Psychology-Carol-S-Dweck/dp/0345472322/ref=asc_df_0345472322/?tag=hyprod-20&linkCode=df0&hvadid=312049124368&hvpos=&hvnetw=g&hvrand=13063031847643437492&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9016077&hvtargid=pla-423142297401&psc=1&mcid=da2aa95e496b34569a16a2c9c64da5ff&tag=&ref=&adgrpid=61851652213&hvpone=&hvptwo=&hvadid=312049124368&hvpos=&hvnetw=g&hvrand=13063031847643437492&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9016077&hvtargid=pla-423142297401&gclid=CjwKCAiA-P-rBhBEEiwAQEXhH70Xxoj1goXxc-G-E82fzGDsrpdivPP6r4996gEVPB9E1WypoUhFiRoCufwQAvD_BwE)
