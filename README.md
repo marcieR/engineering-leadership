@@ -55,10 +55,12 @@ Over the next 13 sessions, we’ll tackle some of the key skills necessary as an
 
 **Date:** 
 
-1. **Tool:** [Team Working Agreement](https://marcier.github.io/engineering-leadership/team-working-agreement)
-2. **Resources:**
+1. **Tool:**
+     - [Team Working Agreement](https://marcier.github.io/engineering-leadership/team-working-agreement)
+     - [Team Working Agreement Example](https://marcier.github.io/engineering-leadership/team-working-agreement-example)
+3. **Resources:**
     1. [*The Unicorn Project* by Gene Kim](https://www.amazon.com/Unicorn-Project-Developers-Disruption-Thriving/dp/1942788762/ref=asc_df_1942788762/?tag=hyprod-20&linkCode=df0&hvadid=385492364860&hvpos=&hvnetw=g&hvrand=7341261239745159657&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9016077&hvtargid=pla-863236963354&psc=1&mcid=30bb401f67b3300abf13cf0e1bafef39&tag=&ref=&adgrpid=79288121435&hvpone=&hvptwo=&hvadid=385492364860&hvpos=&hvnetw=g&hvrand=7341261239745159657&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9016077&hvtargid=pla-863236963354&gclid=CjwKCAiA-P-rBhBEEiwAQEXhH8xB4jKYSQpIDMSTDZUH8RSY76CKUj_gV5Sb6wVJL0K-oBhRbYoDoxoCr2UQAvD_BwE)
-3. **Homework**: Create a Team Working Agreement for your own team
+4. **Homework**: Create a Team Working Agreement for your own team
 
 # Session Six: Aligning to Business Outcomes
 
@@ -73,7 +75,7 @@ Over the next 13 sessions, we’ll tackle some of the key skills necessary as an
 
 **Date:** 
 
-1. **Tool:** Estimation and Sequencing
+1. **Tool:** [Estimation and Sequencing](https://marcier.github.io/engineering-leadership/agile-roadmap/)
 2. **Resources:**
     1. [Agile Roadmaps](https://www.notion.so/Agile-Roadmap-9e2cce6aacd547abbfb7557252c54ed6?pvs=21)
 
