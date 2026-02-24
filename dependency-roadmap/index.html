@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dependency Roadmap Framework</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <div class="max-w-6xl mx-auto py-12 px-4">
+    <!-- Header -->
+    <div class="bg-white border-b-4 border-cyan-900 shadow-sm mb-8">
+      <div class="p-8">
+        <h1 class="text-4xl font-bold text-gray-900 mb-3">Dependency Roadmap Framework</h1>
+        <p class="text-lg text-gray-600 leading-relaxed">
+          A structured approach to identify, map, and manage cross-team dependencies that impact your roadmap. Use this framework to surface blockers early, align stakeholders, and ensure smooth execution across organizational boundaries.
+        </p>
+      </div>
+    </div>
+
+    <!-- Instructions -->
+    <div class="bg-white shadow-sm border border-gray-200 rounded-lg mb-6 p-6">
+      <h2 class="text-xl font-bold text-gray-900 mb-3">How to Use This Framework</h2>
+      <ol class="space-y-2 text-gray-700">
+        <li class="flex items-start gap-3">
+          <span class="bg-cyan-900 text-white font-bold text-sm w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
+          <span><strong>Identify Dependencies:</strong> List all initiatives that require input, resources, or deliverables from other teams</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="bg-cyan-900 text-white font-bold text-sm w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
+          <span><strong>Map Relationships:</strong> Define what you need, who owns it, and when you need it</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="bg-cyan-900 text-white font-bold text-sm w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
+          <span><strong>Assess Risk:</strong> Evaluate the likelihood of delays and impact on your roadmap</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="bg-cyan-900 text-white font-bold text-sm w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">4</span>
+          <span><strong>Create Mitigation Plans:</strong> Develop strategies to reduce risk and maintain momentum</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="bg-cyan-900 text-white font-bold text-sm w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">5</span>
+          <span><strong>Track & Communicate:</strong> Regular check-ins to ensure dependencies stay on track</span>
+        </li>
+      </ol>
+    </div>
+
+    <!-- Dependency Mapping Table -->
+    <div class="bg-white shadow-sm border border-gray-200 rounded-lg overflow-hidden mb-6">
+      <div class="bg-gray-100 border-b border-gray-200 px-6 py-4">
+        <h2 class="text-2xl font-bold text-gray-900">Dependency Mapping</h2>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead>
+            <tr class="bg-gray-100 border-b-2 border-gray-300">
+              <th class="px-4 py-3 text-left text-xs font-bold text-gray-900">Your Initiative</th>
+              <th class="px-4 py-3 text-left text-xs font-bold text-gray-900">What You Need</th>
+              <th class="px-4 py-3 text-left text-xs font-bold text-gray-900">Dependent Team/Owner</th>
+              <th class="px-4 py-3 text-left text-xs font-bold text-gray-900">Target Date</th>
+              <th class="px-4 py-3 text-left text-xs font-bold text-gray-900">Status</th>
+              <th class="px-4 py-3 text-left text-xs font-bold text-gray-900">Risk Level</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            <!-- Example Row -->
+            <tr class="hover:bg-gray-50 transition-colors bg-cyan-50/30">
+              <td class="px-4 py-4 text-sm text-gray-900 font-medium">
+                Example: Mobile App Launch
+              </td>
+              <td class="px-4 py-4 text-sm text-gray-700">
+                API v2 endpoints for user profiles
+              </td>
+              <td class="px-4 py-4 text-sm text-gray-700">
+                Backend Platform Team (Jane Smith)
+              </td>
+              <td class="px-4 py-4 text-sm text-gray-700">
+                March 15, 2026
+              </td>
+              <td class="px-4 py-4">
+                <span class="inline-block px-2 py-1 text-xs font-semibold rounded bg-yellow-100 text-yellow-800">In Progress</span>
+              </td>
+              <td class="px-4 py-4">
+                <span class="inline-block px-2 py-1 text-xs font-semibold rounded bg-orange-100 text-orange-800">Medium</span>
+              </td>
+            </tr>
+
+            <!-- Empty Row 1 -->
+            <tr class="hover:bg-gray-50 transition-colors">
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+            </tr>
+
+            <!-- Empty Row 2 -->
+            <tr class="hover:bg-gray-50 transition-colors">
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+            </tr>
+
+            <!-- Empty Row 3 -->
+            <tr class="hover:bg-gray-50 transition-colors">
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+            </tr>
+
+            <!-- Empty Row 4 -->
+            <tr class="hover:bg-gray-50 transition-colors">
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+            </tr>
+
+            <!-- Empty Row 5 -->
+            <tr class="hover:bg-gray-50 transition-colors">
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+              <td class="px-4 py-6 text-sm">
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Legend -->
+      <div class="bg-gray-50 px-6 py-4 border-t border-gray-200">
+        <div class="flex flex-wrap gap-6 text-sm">
+          <div>
+            <span class="font-semibold text-gray-700">Status:</span>
+            <span class="ml-2 inline-block px-2 py-1 text-xs font-semibold rounded bg-gray-200 text-gray-800">Not Started</span>
+            <span class="ml-2 inline-block px-2 py-1 text-xs font-semibold rounded bg-yellow-100 text-yellow-800">In Progress</span>
+            <span class="ml-2 inline-block px-2 py-1 text-xs font-semibold rounded bg-green-100 text-green-800">Complete</span>
+            <span class="ml-2 inline-block px-2 py-1 text-xs font-semibold rounded bg-red-100 text-red-800">Blocked</span>
+          </div>
+          <div>
+            <span class="font-semibold text-gray-700">Risk:</span>
+            <span class="ml-2 inline-block px-2 py-1 text-xs font-semibold rounded bg-green-100 text-green-800">Low</span>
+            <span class="ml-2 inline-block px-2 py-1 text-xs font-semibold rounded bg-orange-100 text-orange-800">Medium</span>
+            <span class="ml-2 inline-block px-2 py-1 text-xs font-semibold rounded bg-red-100 text-red-800">High</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Risk Assessment -->
+    <div class="bg-white shadow-sm border border-gray-200 rounded-lg mb-6">
+      <div class="bg-gray-100 border-b border-gray-200 px-6 py-4">
+        <h2 class="text-2xl font-bold text-gray-900">Risk Assessment & Mitigation</h2>
+      </div>
+      <div class="p-6 space-y-6">
+
+        <!-- High Risk Dependencies -->
+        <div class="border-l-4 border-red-600 bg-red-50 p-6 rounded-r-lg">
+          <h3 class="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
+            <span class="bg-red-600 text-white text-sm font-bold px-2 py-1 rounded">HIGH RISK</span>
+            Critical Dependencies
+          </h3>
+          <p class="text-sm text-gray-600 mb-4">Dependencies that could significantly delay your roadmap or block key initiatives</p>
+
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Dependency:</label>
+              <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Why is it high risk?</label>
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Impact if delayed:</label>
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Mitigation plan:</label>
+              <div class="space-y-2">
+                <div class="border-b border-gray-300 pb-2 min-h-[25px]"></div>
+                <div class="border-b border-gray-300 pb-2 min-h-[25px]"></div>
+              </div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Contingency plan:</label>
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Escalation point:</label>
+                <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Medium Risk Dependencies -->
+        <div class="border-l-4 border-orange-600 bg-orange-50 p-6 rounded-r-lg">
+          <h3 class="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
+            <span class="bg-orange-600 text-white text-sm font-bold px-2 py-1 rounded">MEDIUM RISK</span>
+            Monitor Closely
+          </h3>
+          <p class="text-sm text-gray-600 mb-4">Dependencies that require active monitoring but have backup options</p>
+
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Dependency:</label>
+              <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Monitoring strategy:</label>
+              <div class="space-y-2">
+                <div class="border-b border-gray-300 pb-2 min-h-[25px]"></div>
+                <div class="border-b border-gray-300 pb-2 min-h-[25px]"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Communication Plan -->
+    <div class="bg-white shadow-sm border border-gray-200 rounded-lg mb-6">
+      <div class="bg-gray-100 border-b border-gray-200 px-6 py-4">
+        <h2 class="text-2xl font-bold text-gray-900">Communication & Tracking Plan</h2>
+      </div>
+      <div class="p-6 space-y-6">
+
+        <div class="border-l-4 border-cyan-600 bg-cyan-50 p-6 rounded-r-lg">
+          <h3 class="text-lg font-bold text-gray-900 mb-3">Regular Check-in Cadence</h3>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Weekly sync meeting:</label>
+              <div class="grid md:grid-cols-3 gap-4">
+                <div>
+                  <p class="text-xs text-gray-600 mb-1">Day/Time:</p>
+                  <div class="border-b-2 border-gray-300 pb-2"></div>
+                </div>
+                <div>
+                  <p class="text-xs text-gray-600 mb-1">Attendees:</p>
+                  <div class="border-b-2 border-gray-300 pb-2"></div>
+                </div>
+                <div>
+                  <p class="text-xs text-gray-600 mb-1">Format:</p>
+                  <div class="border-b-2 border-gray-300 pb-2"></div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Async status updates:</label>
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <p class="text-xs text-gray-600 mb-1">Channel (Slack, email, etc.):</p>
+                  <div class="border-b-2 border-gray-300 pb-2"></div>
+                </div>
+                <div>
+                  <p class="text-xs text-gray-600 mb-1">Frequency:</p>
+                  <div class="border-b-2 border-gray-300 pb-2"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-l-4 border-blue-600 bg-blue-50 p-6 rounded-r-lg">
+          <h3 class="text-lg font-bold text-gray-900 mb-3">Stakeholder Communication</h3>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Who needs to be kept informed?</label>
+              <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Update cadence and format:</label>
+              <div class="border-b-2 border-gray-300 pb-2 min-h-[30px]"></div>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Escalation criteria (when to alert leadership):</label>
+              <div class="space-y-2">
+                <div class="border-b border-gray-300 pb-2 min-h-[25px]"></div>
+                <div class="border-b border-gray-300 pb-2 min-h-[25px]"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Dependency Types Guide -->
+    <div class="bg-white shadow-sm border border-gray-200 rounded-lg mb-6">
+      <div class="bg-gray-100 border-b border-gray-200 px-6 py-4">
+        <h2 class="text-2xl font-bold text-gray-900">Types of Dependencies</h2>
+      </div>
+      <div class="p-6">
+        <div class="grid md:grid-cols-2 gap-6">
+
+          <div class="space-y-4">
+            <div class="border-l-4 border-cyan-600 bg-cyan-50 p-4 rounded-r-lg">
+              <h4 class="font-bold text-gray-900 mb-2">🔧 Technical Dependencies</h4>
+              <p class="text-sm text-gray-700">APIs, infrastructure, platforms, databases, or technical services from other teams</p>
+              <p class="text-xs text-gray-600 mt-2 italic">Example: Need authentication API from Platform team</p>
+            </div>
+
+            <div class="border-l-4 border-purple-600 bg-purple-50 p-4 rounded-r-lg">
+              <h4 class="font-bold text-gray-900 mb-2">👥 Resource Dependencies</h4>
+              <p class="text-sm text-gray-700">Shared engineers, designers, or other personnel needed from other teams</p>
+              <p class="text-xs text-gray-600 mt-2 italic">Example: Need 20% of backend engineer's time for integration</p>
+            </div>
+
+            <div class="border-l-4 border-blue-600 bg-blue-50 p-4 rounded-r-lg">
+              <h4 class="font-bold text-gray-900 mb-2">📄 Content/Data Dependencies</h4>
+              <p class="text-sm text-gray-700">Documentation, data sets, content, or information from other teams</p>
+              <p class="text-xs text-gray-600 mt-2 italic">Example: Need product specs from Product team</p>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="border-l-4 border-green-600 bg-green-50 p-4 rounded-r-lg">
+              <h4 class="font-bold text-gray-900 mb-2">✅ Approval/Decision Dependencies</h4>
+              <p class="text-sm text-gray-700">Decisions, sign-offs, or approvals needed before proceeding</p>
+              <p class="text-xs text-gray-600 mt-2 italic">Example: Need security review approval before launch</p>
+            </div>
+
+            <div class="border-l-4 border-orange-600 bg-orange-50 p-4 rounded-r-lg">
+              <h4 class="font-bold text-gray-900 mb-2">🔄 Sequencing Dependencies</h4>
+              <p class="text-sm text-gray-700">Work that must be completed by others before you can start</p>
+              <p class="text-xs text-gray-600 mt-2 italic">Example: Can't build UI until design system is complete</p>
+            </div>
+
+            <div class="border-l-4 border-pink-600 bg-pink-50 p-4 rounded-r-lg">
+              <h4 class="font-bold text-gray-900 mb-2">🤝 Cross-functional Dependencies</h4>
+              <p class="text-sm text-gray-700">Collaboration needed with legal, finance, marketing, or other non-engineering teams</p>
+              <p class="text-xs text-gray-600 mt-2 italic">Example: Need marketing campaign ready for product launch</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Best Practices -->
+    <div class="bg-white shadow-sm border border-gray-200 rounded-lg mb-6">
+      <div class="bg-gray-100 border-b border-gray-200 px-6 py-4">
+        <h2 class="text-2xl font-bold text-gray-900">Best Practices for Managing Dependencies</h2>
+      </div>
+      <div class="p-6">
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <div class="bg-cyan-600 text-white font-bold text-sm w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">✓</div>
+              <div>
+                <h4 class="font-bold text-gray-900">Surface Early & Often</h4>
+                <p class="text-sm text-gray-600">Identify dependencies during planning, not during execution. The earlier you know, the more options you have.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="bg-cyan-600 text-white font-bold text-sm w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">✓</div>
+              <div>
+                <h4 class="font-bold text-gray-900">Be Specific, Not Vague</h4>
+                <p class="text-sm text-gray-600">"Need backend support" is vague. "Need user profile API endpoints with pagination support" is specific.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="bg-cyan-600 text-white font-bold text-sm w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">✓</div>
+              <div>
+                <h4 class="font-bold text-gray-900">Build Relationships, Not Tickets</h4>
+                <p class="text-sm text-gray-600">Dependencies are human relationships. Regular 1:1s with dependent team leads matter more than perfect tracking systems.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="bg-cyan-600 text-white font-bold text-sm w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">✓</div>
+              <div>
+                <h4 class="font-bold text-gray-900">Add Buffer Time</h4>
+                <p class="text-sm text-gray-600">If a team says they'll deliver by March 1, plan as if it's March 15. Dependencies rarely arrive early.</p>
+              </div>
+            </div>
+          </div>
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <div class="bg-cyan-600 text-white font-bold text-sm w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">✓</div>
+              <div>
+                <h4 class="font-bold text-gray-900">Make Trade-offs Visible</h4>
+                <p class="text-sm text-gray-600">When dependencies slip, make the impact clear to stakeholders. "If API is delayed 2 weeks, launch moves to Q2."</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="bg-cyan-600 text-white font-bold text-sm w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">✓</div>
+              <div>
+                <h4 class="font-bold text-gray-900">Have a Plan B</h4>
+                <p class="text-sm text-gray-600">For critical dependencies, always have a contingency. Mocks, temporary workarounds, or reduced scope can keep you moving.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="bg-cyan-600 text-white font-bold text-sm w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">✓</div>
+              <div>
+                <h4 class="font-bold text-gray-900">Update Status Weekly</h4>
+                <p class="text-sm text-gray-600">Dependencies change. What was green last week might be red this week. Regular check-ins prevent surprises.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="bg-cyan-600 text-white font-bold text-sm w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">✓</div>
+              <div>
+                <h4 class="font-bold text-gray-900">Escalate Early</h4>
+                <p class="text-sm text-gray-600">If a dependency is at risk, don't wait. Escalate to your leadership and the dependent team's leadership immediately.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Warning Signs -->
+    <div class="bg-cyan-900 text-white shadow-lg rounded-lg p-8">
+      <h2 class="text-2xl font-bold mb-4">⚠️ Warning Signs Your Dependencies Are At Risk</h2>
+      <div class="grid md:grid-cols-2 gap-4 text-lg">
+        <ul class="space-y-2">
+          <li class="flex items-start gap-2">
+            <span class="mt-1">•</span>
+            <span>The dependent team hasn't confirmed your request in writing</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-1">•</span>
+            <span>You're hearing "we'll try" instead of "we're committed"</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-1">•</span>
+            <span>The dependent team's roadmap changed and your work isn't on it</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-1">•</span>
+            <span>You haven't talked to them in 2+ weeks</span>
+          </li>
+        </ul>
+        <ul class="space-y-2">
+          <li class="flex items-start gap-2">
+            <span class="mt-1">•</span>
+            <span>Status is "in progress" for 3+ weeks with no visible progress</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-1">•</span>
+            <span>The owner changed and new owner is ramping up</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-1">•</span>
+            <span>Dates are vague ("sometime in Q2") instead of specific</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-1">•</span>
+            <span>You're the one doing all the following up</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="text-center mt-8 text-gray-500">
+      <p class="text-sm">Dependencies managed well = roadmaps delivered on time</p>
+    </div>
+  </div>
+</body>
+</html>
