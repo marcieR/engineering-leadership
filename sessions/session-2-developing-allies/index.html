@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Session 2: Developing Allies</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #21243a;
+      --teal: #06b6d4;
+      --teal-light: #22d3ee;
+      --green: #10b981;
+      --green-light: #34d399;
+      --text: #eaeaea;
+      --muted: #8b8fa8;
+      --border: rgba(255,255,255,0.07);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ── TOP NAV ── */
+    .top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(15,17,23,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.85rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .top-nav .back {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+    .top-nav .back:hover { color: var(--teal-light); }
+    .top-nav .session-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--teal);
+    }
+    .top-nav .pill-nav {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .top-nav .pill-nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .top-nav .pill-nav a:hover {
+      color: var(--text);
+      border-color: var(--teal);
+      background: rgba(6,182,212,0.08);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 52vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 8rem 2rem 4rem;
+      background:
+        radial-gradient(ellipse at 75% 0%, rgba(6,182,212,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse at 5% 85%, rgba(16,185,129,0.1) 0%, transparent 50%),
+        var(--bg);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: '02';
+      position: absolute;
+      right: 6%;
+      bottom: -2rem;
+      font-size: clamp(10rem, 20vw, 18rem);
+      font-weight: 900;
+      color: rgba(255,255,255,0.025);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 860px; }
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1rem;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 span { color: var(--teal-light); }
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 620px;
+      margin-bottom: 1.75rem;
+    }
+    .book-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .book-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      border: 1px solid;
+    }
+    .book-tag.teal  { color: var(--teal-light);  border-color: rgba(6,182,212,0.4);  background: rgba(6,182,212,0.08); }
+    .book-tag.green { color: var(--green-light);  border-color: rgba(16,185,129,0.4); background: rgba(16,185,129,0.08); }
+
+    /* ── LAYOUT ── */
+    .page-body {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    /* ── SEGMENT DIVIDER ── */
+    .segment-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 4rem 0 2.5rem;
+    }
+    .segment-divider .seg-line { flex: 1; height: 1px; background: var(--border); }
+    .segment-divider .seg-pill {
+      padding: 0.4rem 1.2rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .seg-pill.teal  { background: rgba(6,182,212,0.12);  color: var(--teal-light);  border: 1px solid rgba(6,182,212,0.3); }
+    .seg-pill.green { background: rgba(16,185,129,0.12); color: var(--green-light); border: 1px solid rgba(16,185,129,0.3); }
+
+    .reading-credit {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── SECTION CARD ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+    .card-head {
+      padding: 1.25rem 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .card-head .icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.15rem;
+      flex-shrink: 0;
+    }
+    .card-head h2 { font-size: 1.15rem; font-weight: 700; }
+    .card-head p  { font-size: 0.8rem; color: var(--muted); margin-top: 0.1rem; }
+    .card-body { padding: 1.75rem; }
+
+    .icon-teal  { background: rgba(6,182,212,0.15); }
+    .icon-green { background: rgba(16,185,129,0.15); }
+
+    /* ── CALLOUTS ── */
+    .callout {
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+      border-left: 4px solid;
+    }
+    .callout.teal  { background: rgba(6,182,212,0.07);  border-color: var(--teal);  }
+    .callout.green { background: rgba(16,185,129,0.07); border-color: var(--green); }
+    .callout.dark  { background: rgba(255,255,255,0.04); border-color: var(--border); border-left-color: var(--muted); }
+    .callout p     { font-size: 0.9rem; color: var(--text); }
+    .callout .label { font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 0.4rem; }
+    .callout.teal .label { color: var(--teal-light); }
+    .callout.green .label { color: var(--green-light); }
+
+    /* ── BIG QUOTE ── */
+    .big-quote {
+      border-radius: 16px;
+      padding: 2rem;
+      border-left: 4px solid var(--teal);
+      background: rgba(6,182,212,0.06);
+      margin-bottom: 1.5rem;
+    }
+    .big-quote p {
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--teal-light);
+      line-height: 1.6;
+    }
+
+    /* ── CHIP GRID ── */
+    .chip-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+    .chip {
+      padding: 0.4rem 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .chip.teal  { background: rgba(6,182,212,0.12);  color: var(--teal-light);  border: 1px solid rgba(6,182,212,0.25); }
+    .chip.green { background: rgba(16,185,129,0.12); color: var(--green-light); border: 1px solid rgba(16,185,129,0.25); }
+    .chip.dark  { background: rgba(255,255,255,0.05); color: var(--text);        border: 1px solid var(--border); }
+
+    /* ── CHECK LIST ── */
+    .check-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .check-list li { display: flex; gap: 0.65rem; align-items: flex-start; font-size: 0.9rem; color: var(--text); }
+    .check-list .mark { color: var(--teal); font-weight: 700; flex-shrink: 0; margin-top: 0.05rem; }
+    .check-list .mark.green { color: var(--green-light); }
+
+    /* ── TWO-COL ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .five-col  { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem; }
+
+    /* ── NUMBERED LEVER ── */
+    .lever {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .lever-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .lever-num {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .lever-num.green { background: rgba(16,185,129,0.2); color: var(--green-light); border: 1px solid rgba(16,185,129,0.3); }
+    .lever h3 { font-size: 1.05rem; font-weight: 700; }
+
+    /* ── FRAMING COMPARE ── */
+    .framing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+    .framing-box {
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      border: 1px solid;
+    }
+    .framing-box .label { font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .framing-box.weak  { background: rgba(239,68,68,0.08); border-color: rgba(239,68,68,0.2); }
+    .framing-box.weak .label  { color: #fca5a5; }
+    .framing-box.strong { background: rgba(16,185,129,0.08); border-color: rgba(16,185,129,0.2); }
+    .framing-box.strong .label { color: var(--green-light); }
+    .framing-box p { font-size: 0.85rem; color: var(--text); font-style: italic; }
+
+    /* ── AVOID CHIPS ── */
+    .avoid-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.75rem 0; }
+    .avoid-chip {
+      background: rgba(239,68,68,0.1);
+      color: #fca5a5;
+      border: 1px solid rgba(239,68,68,0.2);
+      border-radius: 6px;
+      font-size: 0.8rem;
+      padding: 0.3rem 0.7rem;
+    }
+
+    /* ── STAT CALLOUT ── */
+    .stat-callout {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .stat-callout .stat-num {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--teal-light);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .stat-callout p { font-size: 0.85rem; color: var(--muted); }
+
+    /* ── DEPENDENCY COLS ── */
+    .dep-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+    .dep-box {
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      border-left: 4px solid;
+      background: rgba(255,255,255,0.03);
+    }
+    .dep-box.blue  { border-color: var(--teal); }
+    .dep-box.green { border-color: var(--green); }
+    .dep-box h4 { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .dep-box p  { font-size: 0.8rem; color: var(--muted); }
+
+    /* ── BOTTOM NAV ── */
+    .bottom-nav {
+      text-align: center;
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+      margin-top: 2rem;
+    }
+    .bottom-nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .bottom-nav a:hover { color: var(--teal-light); }
+
+    @media (max-width: 640px) {
+      .top-nav .pill-nav { display: none; }
+      .two-col, .framing-grid, .dep-cols { grid-template-columns: 1fr; }
+      .three-col { grid-template-columns: 1fr; }
+      .five-col  { grid-template-columns: repeat(2, 1fr); }
+      .hero { padding: 7rem 1.25rem 3rem; }
+      .page-body { padding: 2.5rem 1.25rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP NAV -->
+  <nav class="top-nav">
+    <a href="../../index.html" class="back">← Program Home</a>
+    <span class="session-label">Session 02</span>
+    <div class="pill-nav">
+      <a href="#allies">Allies</a>
+      <a href="#win-win">Win-Win Leverage</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Engineering Leadership Training</p>
+      <h1>Session 2: <span>Developing</span> Allies</h1>
+      <p>The actions you take in your first three months disproportionately determine your long-term success. Building the right relationships, coalitions, and influence strategies early creates the foundation for everything that follows.</p>
+      <div class="book-tags">
+        <span class="book-tag teal">The First 90 Days — Michael Watkins</span>
+        <span class="book-tag green">Win-Win Leverage</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-body">
+
+    <!-- ── SEGMENT 1: ALLIES ─────────────────────────────────────────── -->
+    <div class="segment-divider" id="allies">
+      <div class="seg-line"></div>
+      <span class="seg-pill teal">Segment 1 — Allies</span>
+      <div class="seg-line"></div>
+    </div>
+    <p class="reading-credit">Further Reading: <em>The First 90 Days</em> by Michael Watkins</p>
+
+    <!-- Why This Matters -->
+    <div class="card">
+      <div class="card-head">
+        <div class="icon icon-teal">🎯</div>
+        <div>
+          <h2>Why This Matters for Engineering Leaders</h2>
+          <p>The traps new leaders fall into — and how to avoid them</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="two-col" style="margin-bottom: 1.25rem;">
+          <div class="callout teal"><p>Helps avoid the <strong>"hero fix-it" trap</strong></p></div>
+          <div class="callout teal"><p>Provides a <strong>repeatable transition playbook</strong></p></div>
+          <div class="callout teal"><p>Emphasizes <strong>credibility before control</strong></p></div>
+          <div class="callout teal"><p>Frames change as <strong>sequenced, not immediate</strong></p></div>
+        </div>
+        <div style="background: rgba(255,255,255,0.04); border-radius: 12px; padding: 1.25rem; border: 1px solid var(--border);">
+          <p style="font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem;">In engineering contexts, this translates to:</p>
+          <ul class="check-list">
+            <li><span class="mark">→</span> Learning systems before changing process</li>
+            <li><span class="mark">→</span> Understanding delivery constraints before reorganizing</li>
+            <li><span class="mark">→</span> Establishing trust before enforcing accountability</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Transition Types -->
+    <div class="card">
+      <div class="card-head">
+        <div class="icon icon-teal">🔄</div>
+        <div>
+          <h2>Transition Types Matter</h2>
+          <p>Misdiagnosing the transition is a primary cause of failure</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 1rem;">Different situations require different strategies. Know what kind of transition you're in before choosing your approach.</p>
+        <div class="five-col">
+          <div class="chip dark" style="text-align: center; padding: 0.75rem;">Start-up</div>
+          <div class="chip dark" style="text-align: center; padding: 0.75rem;">Turnaround</div>
+          <div class="chip dark" style="text-align: center; padding: 0.75rem;">Accelerated Growth</div>
+          <div class="chip dark" style="text-align: center; padding: 0.75rem;">Realignment</div>
+          <div class="chip dark" style="text-align: center; padding: 0.75rem;">Sustaining Success</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Secure Early Wins -->
+    <div class="card">
+      <div class="card-head">
+        <div class="icon icon-teal">⚡</div>
+        <div>
+          <h2>Secure Early Wins</h2>
+          <p>Build momentum that earns future flexibility</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="two-col">
+          <div>
+            <p style="font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--teal); margin-bottom: 0.75rem;">Early wins should:</p>
+            <ul class="check-list">
+              <li><span class="mark">✓</span> Build credibility</li>
+              <li><span class="mark">✓</span> Create momentum</li>
+              <li><span class="mark">✓</span> Neutralize skeptics</li>
+            </ul>
+          </div>
+          <div>
+            <p style="font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--teal); margin-bottom: 0.75rem;">They should be:</p>
+            <ul class="check-list">
+              <li><span class="mark">→</span> Visible</li>
+              <li><span class="mark">→</span> Meaningful</li>
+              <li><span class="mark">→</span> Achievable within 90 days</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Negotiate Success -->
+    <div class="card">
+      <div class="card-head">
+        <div class="icon icon-teal">🤝</div>
+        <div>
+          <h2>Negotiate Success</h2>
+          <p>Assuming alignment is a critical error</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 1.25rem;">Leaders must explicitly negotiate with their manager and stakeholders on all four dimensions:</p>
+        <div class="chip-grid">
+          <span class="chip teal">Expectations</span>
+          <span class="chip teal">Resources</span>
+          <span class="chip teal">Metrics</span>
+          <span class="chip teal">Boundaries of Authority</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Build the Right Team -->
+    <div class="card">
+      <div class="card-head">
+        <div class="icon icon-teal">👥</div>
+        <div>
+          <h2>Build the Right Team Early</h2>
+          <p>Who is on the bus matters more than initial strategy</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <ul class="check-list" style="margin-bottom: 1.25rem;">
+          <li><span class="mark">→</span> Assess talent quickly</li>
+          <li><span class="mark">→</span> Make decisions about roles, gaps, and misalignment</li>
+          <li><span class="mark">→</span> Delay drastic moves — but do not avoid them</li>
+        </ul>
+        <div class="big-quote" style="margin-bottom: 0;">
+          <p>"Who is on the bus" matters more than initial strategy.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Create Coalitions -->
+    <div class="card">
+      <div class="card-head">
+        <div class="icon icon-teal">🕸</div>
+        <div>
+          <h2>Create Coalitions</h2>
+          <p>Especially critical at the executive level</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 1rem;">Success depends on understanding the informal architecture of your organization:</p>
+        <ul class="check-list">
+          <li><span class="mark">✓</span> Identifying influencers</li>
+          <li><span class="mark">✓</span> Building trust across functions</li>
+          <li><span class="mark">✓</span> Understanding informal power structures</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Achieve Alignment -->
+    <div class="card">
+      <div class="card-head">
+        <div class="icon icon-teal">⚖️</div>
+        <div>
+          <h2>Achieve Alignment</h2>
+          <p>Misalignment — not incompetence — causes most execution failures</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 1.25rem;">Effective leaders align all five dimensions:</p>
+        <div class="five-col">
+          <div class="chip teal" style="text-align: center; padding: 0.75rem;">Strategy</div>
+          <div class="chip teal" style="text-align: center; padding: 0.75rem;">Structure</div>
+          <div class="chip teal" style="text-align: center; padding: 0.75rem;">Systems</div>
+          <div class="chip teal" style="text-align: center; padding: 0.75rem;">Skills</div>
+          <div class="chip teal" style="text-align: center; padding: 0.75rem;">Culture</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SEGMENT 2: WIN-WIN LEVERAGE ────────────────────────────────── -->
+    <div class="segment-divider" id="win-win">
+      <div class="seg-line"></div>
+      <span class="seg-pill green">Segment 2 — Win-Win Leverage</span>
+      <div class="seg-line"></div>
+    </div>
+    <p class="reading-credit">Further Reading: <em>The First 90 Days</em> by Michael Watkins</p>
+
+    <!-- Win-Win Definition -->
+    <div style="background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.2); border-radius: 16px; padding: 2rem; margin-bottom: 1.5rem;">
+      <p style="font-size: 1.2rem; font-style: italic; color: var(--green-light); line-height: 1.65;">
+        Win-Win leverage is the ability to advance your agenda by helping others achieve their own and increasing your influence in the process.
+      </p>
+    </div>
+
+    <!-- What It Means -->
+    <div class="card">
+      <div class="card-head">
+        <div class="icon icon-green">🔗</div>
+        <div>
+          <h2>What Win-Win Leverage Means in Practice</h2>
+          <p>Trade value instead of pushing change through authority</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 1.25rem;">Win-win leverage exists at the intersection of:</p>
+        <div class="three-col">
+          <div class="callout green">
+            <p class="label">Your mandate</p>
+            <p>What you are accountable for</p>
+          </div>
+          <div class="callout green">
+            <p class="label">Others' priorities</p>
+            <p>What peers and stakeholders are measured on</p>
+          </div>
+          <div class="callout green">
+            <p class="label">Organizational constraints</p>
+            <p>Budget, time, risk, politics</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Three Levers -->
+    <div class="card">
+      <div class="card-head">
+        <div class="icon icon-green">🎚</div>
+        <div>
+          <h2>The Three Levers of Win-Win Influence</h2>
+          <p>Practical tools for building influence without authority</p>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <!-- Lever 1 -->
+        <div class="lever">
+          <div class="lever-header">
+            <div class="lever-num green">1</div>
+            <h3>Leverage Through Early Wins</h3>
+          </div>
+          <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 1rem;">Early wins are not just about delivery — they are currency.</p>
+          <ul class="check-list">
+            <li><span class="mark green">✓</span> Select wins that matter to others, not just your function</li>
+            <li><span class="mark green">✓</span> Publicly credit cross-functional partners</li>
+            <li><span class="mark green">✓</span> Use early wins to earn future flexibility</li>
+          </ul>
+        </div>
+
+        <!-- Lever 2 -->
+        <div class="lever">
+          <div class="lever-header">
+            <div class="lever-num green">2</div>
+            <h3>Leverage Through Problem Framing</h3>
+          </div>
+          <p style="font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 1rem;">Whoever frames the problem controls the conversation.</p>
+
+          <div class="framing-grid">
+            <div class="framing-box weak">
+              <p class="label">Weak framing</p>
+              <p>"Engineering needs two more teams."</p>
+            </div>
+            <div class="framing-box strong">
+              <p class="label">Win-win framing</p>
+              <p>"To hit the revenue milestone without increasing outage risk, we need to rebalance capacity between feature work and platform stability."</p>
+            </div>
+          </div>
+
+          <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; margin-bottom: 1rem;">
+            <p style="font-size: 0.8rem; font-weight: 700; color: var(--muted); margin-bottom: 0.6rem;">Reframe if your message includes:</p>
+            <div class="avoid-grid">
+              <span class="avoid-chip">"Sorry…"</span>
+              <span class="avoid-chip">"We'll try…"</span>
+              <span class="avoid-chip">"If it's okay…"</span>
+              <span class="avoid-chip">"Because of X, we couldn't…"</span>
+              <span class="avoid-chip">"Mistakes were made…"</span>
+            </div>
+          </div>
+
+          <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 10px; padding: 1rem;">
+            <p style="font-size: 0.8rem; font-weight: 700; color: var(--muted); margin-bottom: 0.6rem;">Weak framing tends to:</p>
+            <ul class="check-list">
+              <li><span class="mark">→</span> Lead with emotion (apology, defensiveness)</li>
+              <li><span class="mark">→</span> Hide ownership</li>
+              <li><span class="mark">→</span> Ask for permission instead of setting direction</li>
+              <li><span class="mark">→</span> Frame work as pain instead of value</li>
+              <li><span class="mark">→</span> Focus on why things failed instead of how they succeed next time</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Lever 3 -->
+        <div class="lever">
+          <div class="lever-header">
+            <div class="lever-num green">3</div>
+            <h3>Leverage Through Dependency Mapping</h3>
+          </div>
+          <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 1rem;">Influence increases when you understand the full dependency graph:</p>
+          <ul class="check-list" style="margin-bottom: 1.25rem;">
+            <li><span class="mark green">→</span> Who depends on you</li>
+            <li><span class="mark green">→</span> Who you depend on</li>
+            <li><span class="mark green">→</span> Where value can be exchanged</li>
+          </ul>
+          <div class="dep-cols">
+            <div class="dep-box blue">
+              <h4>Formal dependencies</h4>
+              <p>Roadmaps, approvals, sign-offs</p>
+            </div>
+            <div class="dep-box green">
+              <h4>Informal dependencies</h4>
+              <p>Reputation, trust, institutional knowledge</p>
+            </div>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--muted); font-style: italic; margin-top: 1rem;">This enables intentional reciprocity, not transactional bartering.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="bottom-nav">
+      <a href="../../index.html">← Back to Engineering Leadership Program</a>
+    </div>
+
+  </main>
+</body>
+</html>
