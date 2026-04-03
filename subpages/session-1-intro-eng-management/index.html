@@ -4,243 +4,745 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Session 1: Intro to Engineering Management</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #21243a;
+      --accent: #e94560;
+      --accent2: #ff6b81;
+      --gold: #f5c518;
+      --purple: #7c5cbf;
+      --purple-light: #a78bda;
+      --text: #eaeaea;
+      --muted: #8b8fa8;
+      --border: rgba(255,255,255,0.07);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ── TOP NAV ── */
+    .top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(15,17,23,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.85rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .top-nav .back {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: color 0.2s;
+    }
+    .top-nav .back:hover { color: var(--accent2); }
+    .top-nav .session-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .top-nav .pill-nav {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .top-nav .pill-nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+    .top-nav .pill-nav a:hover {
+      color: var(--text);
+      border-color: var(--accent);
+      background: rgba(233,69,96,0.08);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 52vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 8rem 2rem 4rem;
+      background:
+        radial-gradient(ellipse at 70% 0%, rgba(124,92,191,0.2) 0%, transparent 55%),
+        radial-gradient(ellipse at 10% 80%, rgba(233,69,96,0.12) 0%, transparent 50%),
+        var(--bg);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: '01';
+      position: absolute;
+      right: 6%;
+      bottom: -2rem;
+      font-size: clamp(10rem, 20vw, 18rem);
+      font-weight: 900;
+      color: rgba(255,255,255,0.025);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 860px; }
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 span { color: var(--accent2); }
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 620px;
+      margin-bottom: 1.75rem;
+    }
+    .book-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .book-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      border: 1px solid;
+    }
+    .book-tag.red   { color: var(--accent2);       border-color: rgba(233,69,96,0.4);   background: rgba(233,69,96,0.08); }
+    .book-tag.purple{ color: var(--purple-light);  border-color: rgba(124,92,191,0.4);  background: rgba(124,92,191,0.08); }
+
+    /* ── LAYOUT ── */
+    .page-body {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    /* ── SEGMENT DIVIDER ── */
+    .segment-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 4rem 0 2.5rem;
+    }
+    .segment-divider .seg-line { flex: 1; height: 1px; background: var(--border); }
+    .segment-divider .seg-pill {
+      padding: 0.4rem 1.2rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .seg-pill.red    { background: rgba(233,69,96,0.15);  color: var(--accent2);      border: 1px solid rgba(233,69,96,0.3); }
+    .seg-pill.purple { background: rgba(124,92,191,0.15); color: var(--purple-light); border: 1px solid rgba(124,92,191,0.3); }
+
+    .reading-credit {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── SECTION CARD ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+    .card-head {
+      padding: 1.25rem 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .card-head .icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.15rem;
+      flex-shrink: 0;
+    }
+    .card-head h2 { font-size: 1.15rem; font-weight: 700; }
+    .card-head p  { font-size: 0.8rem; color: var(--muted); margin-top: 0.1rem; }
+    .card-body { padding: 1.75rem; }
+
+    .icon-red    { background: rgba(233,69,96,0.15); }
+    .icon-purple { background: rgba(124,92,191,0.15); }
+    .icon-gold   { background: rgba(245,197,24,0.12); }
+    .icon-blue   { background: rgba(59,130,246,0.15); }
+    .icon-teal   { background: rgba(20,184,166,0.15); }
+
+    /* ── BALANCE PAIRS ── */
+    .balance-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 0.75rem 0.5rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .balance-side {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      font-size: 0.85rem;
+    }
+    .balance-side.left  { border-left: 3px solid var(--accent); }
+    .balance-side.right { border-right: 3px solid var(--purple); }
+    .balance-side .label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+    .balance-side.left  .label { color: var(--accent); }
+    .balance-side.right .label { color: var(--purple-light); }
+    .balance-side p { color: var(--muted); font-size: 0.82rem; }
+    .balance-vs {
+      color: var(--muted);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    /* ── PRINCIPLE CARDS ── */
+    .principle {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      background: var(--surface2);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      margin-bottom: 0.75rem;
+      transition: border-color 0.2s;
+    }
+    .principle:hover { border-color: rgba(233,69,96,0.3); }
+    .principle .num {
+      width: 30px; height: 30px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; font-weight: 800;
+      flex-shrink: 0;
+      color: #fff;
+    }
+    .principle h3 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .principle p  { font-size: 0.82rem; color: var(--muted); }
+
+    /* ── QUALITY CHIPS ── */
+    .quality-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .quality-chip {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.1rem;
+      transition: border-color 0.2s;
+    }
+    .quality-chip:hover { border-color: rgba(124,92,191,0.4); }
+    .quality-chip h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.25rem; color: var(--text); }
+    .quality-chip p  { font-size: 0.8rem; color: var(--muted); }
+
+    /* ── CALLOUT ── */
+    .callout {
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .callout.accent {
+      background: rgba(233,69,96,0.08);
+      border: 1px solid rgba(233,69,96,0.25);
+    }
+    .callout.purple {
+      background: rgba(124,92,191,0.08);
+      border: 1px solid rgba(124,92,191,0.25);
+    }
+    .callout.gold {
+      background: rgba(245,197,24,0.07);
+      border: 1px solid rgba(245,197,24,0.25);
+    }
+    .callout.blue {
+      background: rgba(59,130,246,0.07);
+      border: 1px solid rgba(59,130,246,0.2);
+    }
+    .callout blockquote {
+      font-size: 1.05rem;
+      font-style: italic;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .callout .callout-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .callout.accent  .callout-label { color: var(--accent2); }
+    .callout.purple  .callout-label { color: var(--purple-light); }
+    .callout.gold    .callout-label { color: var(--gold); }
+    .callout.blue    .callout-label { color: #93c5fd; }
+
+    /* ── DISCUSSION ── */
+    .discussion {
+      background: rgba(245,197,24,0.06);
+      border: 1px solid rgba(245,197,24,0.2);
+      border-radius: 12px;
+      padding: 1.1rem 1.4rem;
+      margin-top: 1.25rem;
+    }
+    .discussion .d-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+    .discussion li {
+      font-size: 0.88rem;
+      color: var(--muted);
+      list-style: none;
+      padding: 0.2rem 0;
+      padding-left: 1.1rem;
+      position: relative;
+    }
+    .discussion li::before { content: '›'; position: absolute; left: 0; color: var(--gold); }
+
+    /* ── FRAMEWORK CARD ── */
+    .framework-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    @media (max-width: 580px) { .framework-grid { grid-template-columns: 1fr; } }
+    .framework-box {
+      background: var(--surface2);
+      border-radius: 12px;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+    }
+    .framework-box h3 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .framework-box.sbi  h3 { color: #60a5fa; }
+    .framework-box.coin h3 { color: #4ade80; }
+    .letter-row {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      margin-bottom: 0.6rem;
+    }
+    .letter-badge {
+      width: 24px; height: 24px;
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 800;
+      flex-shrink: 0;
+    }
+    .sbi  .letter-badge { background: rgba(96,165,250,0.2); color: #60a5fa; }
+    .coin .letter-badge { background: rgba(74,222,128,0.2); color: #4ade80; }
+    .letter-row p { font-size: 0.82rem; color: var(--muted); }
+    .letter-row strong { color: var(--text); }
+
+    /* ── 3C FLOW ── */
+    .flow-row {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      margin-bottom: 1rem;
+    }
+    .flow-step {
+      flex: 1;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 1rem;
+      text-align: center;
+    }
+    .flow-step:first-child { border-radius: 12px 0 0 12px; }
+    .flow-step:last-child  { border-radius: 0 12px 12px 0; }
+    .flow-step .fs-num { font-size: 1.4rem; margin-bottom: 0.3rem; }
+    .flow-step h4 { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .flow-step p  { font-size: 0.75rem; color: var(--muted); }
+    .flow-arrow {
+      display: flex; align-items: center;
+      color: var(--muted); font-size: 0.9rem;
+      padding: 0 0.1rem;
+    }
+
+    /* ── STAKEHOLDER MATRIX ── */
+    .matrix {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 2px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .matrix-cell {
+      background: var(--surface2);
+      padding: 1rem 1.1rem;
+    }
+    .matrix-cell .mc-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+    .matrix-cell h4 { font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 0.2rem; }
+    .matrix-cell p  { font-size: 0.78rem; color: var(--muted); }
+    .matrix-cell.highlight { background: rgba(124,92,191,0.15); border: 1px solid rgba(124,92,191,0.3); }
+    .matrix-cell.highlight h4 { color: var(--purple-light); }
+
+    /* ── FIVE WHYS ── */
+    .why-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .why-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.85rem 1.1rem;
+      font-size: 0.88rem;
+      transition: border-color 0.2s;
+    }
+    .why-item:hover { border-color: rgba(233,69,96,0.35); }
+    .why-item .w-num {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--accent);
+      width: 20px;
+      flex-shrink: 0;
+    }
+    .why-item strong { color: var(--text); }
+    .why-item span   { color: var(--muted); }
+
+    /* ── INFO ROWS ── */
+    .info-row {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-row .arrow { color: var(--purple-light); font-size: 0.9rem; flex-shrink: 0; padding-top: 0.1rem; }
+    .info-row p { font-size: 0.88rem; color: var(--muted); }
+    .info-row strong { color: var(--text); }
+    .info-row em { color: var(--text); font-style: italic; }
+
+    /* ── RESOURCE LINK ── */
+    .resource-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      color: #60a5fa;
+      text-decoration: none;
+      padding: 0.4rem 0.9rem;
+      border-radius: 8px;
+      border: 1px solid rgba(96,165,250,0.25);
+      background: rgba(96,165,250,0.06);
+      transition: all 0.2s;
+    }
+    .resource-link:hover { background: rgba(96,165,250,0.12); border-color: rgba(96,165,250,0.5); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 640px) {
+      .top-nav .pill-nav { display: none; }
+      .balance-grid { grid-template-columns: 1fr; }
+      .balance-vs { display: none; }
+      .flow-row { flex-direction: column; }
+      .flow-arrow { display: none; }
+      .flow-step { border-radius: 10px !important; }
+      .matrix { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
-<body class="bg-gray-50 min-h-screen">
-  <div class="max-w-6xl mx-auto py-12 px-4">
+<body>
 
-    <!-- Header -->
-    <div class="bg-white border-b-4 border-red-900 shadow-sm mb-8">
-      <div class="p-8">
-        <p class="text-sm font-semibold text-red-800 uppercase tracking-widest mb-2">Engineering Leadership Training</p>
-        <h1 class="text-4xl font-bold text-gray-900 mb-3">Session 1: Intro to Engineering Management</h1>
-        <p class="text-lg text-gray-600 leading-relaxed">
-          Becoming an Engineering Manager is a significant career inflection point. Rather than being the expert in a particular language, framework, or architecture pattern, you must shift your thinking and focus on achieving goals by building and leading a healthy team. Your new performance metrics include the career growth of your team members, roadmapping, and healthy delivery outcomes.
-        </p>
-      </div>
-      <div class="px-8 pb-6 flex flex-wrap gap-3">
-        <span class="bg-red-100 text-red-800 text-xs font-semibold px-3 py-1 rounded-full">Dichotomy of Leadership — Jocko Willink</span>
-        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">The Manager's Path — Camille Fournier</span>
+  <!-- Top Nav -->
+  <nav class="top-nav">
+    <a class="back" href="../../index.html">← Program Home</a>
+    <span class="session-label">Session 01</span>
+    <div class="pill-nav">
+      <a href="#balance">Balance</a>
+      <a href="#managers-path">Manager's Path</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Engineering Leadership Training</p>
+      <h1>Intro to<br><span>Engineering Management</span></h1>
+      <p>The shift from individual contributor to manager isn't a promotion — it's a career change. Your success metrics, your skills, and your entire definition of impact all transform.</p>
+      <div class="book-tags">
+        <span class="book-tag red">Dichotomy of Leadership — Jocko Willink</span>
+        <span class="book-tag purple">The Manager's Path — Camille Fournier</span>
       </div>
     </div>
+  </header>
 
-    <!-- ── SEGMENT 1: BALANCE ─────────────────────────────────────────── -->
-    <div class="mb-4">
-      <div class="flex items-center gap-3 mb-6">
-        <div class="h-1 flex-1 bg-red-200"></div>
-        <h2 class="text-2xl font-bold text-gray-800 whitespace-nowrap">Segment 1: Balance</h2>
-        <div class="h-1 flex-1 bg-red-200"></div>
-      </div>
-      <p class="text-sm text-gray-500 italic mb-6 text-center">Further Reading: <em>Dichotomy of Leadership</em> by Jocko Willink</p>
+  <div class="page-body">
+
+    <!-- ══════════════════════════════════════════
+         SEGMENT 1: BALANCE
+    ══════════════════════════════════════════ -->
+    <div class="segment-divider" id="balance">
+      <div class="seg-line"></div>
+      <span class="seg-pill red">Segment 1 — Balance</span>
+      <div class="seg-line"></div>
     </div>
+    <p class="reading-credit">Further Reading: <em>Dichotomy of Leadership</em> by Jocko Willink</p>
 
     <!-- Dichotomy of Leadership -->
-    <div class="bg-white shadow-sm border border-gray-200 rounded-lg mb-6">
-      <div class="bg-gray-100 border-b border-gray-200 px-6 py-4">
-        <h2 class="text-2xl font-bold text-gray-900">Dichotomy of Leadership</h2>
-        <p class="text-sm text-gray-600 mt-1">Leadership requires constant balance between opposing forces</p>
+    <div class="card">
+      <div class="card-head">
+        <div class="icon icon-red">⚖️</div>
+        <div>
+          <h2>Dichotomy of Leadership</h2>
+          <p>Leadership requires constant balance between opposing forces</p>
+        </div>
       </div>
-      <div class="p-6 space-y-4">
+      <div class="card-body">
 
-        <div class="border-l-4 border-red-600 bg-red-50 p-5 rounded-r-lg">
-          <h3 class="text-base font-bold text-gray-900 mb-1">Apply too much pressure / Applying not enough</h3>
-          <p class="text-sm text-gray-700">Team feels like there is too much to do &nbsp;/&nbsp; Team slows down without a vision</p>
+        <div class="balance-grid">
+          <!-- Row 1 -->
+          <div class="balance-side left">
+            <div class="label">Too much</div>
+            <p>Team feels overwhelmed — there's too much to do</p>
+          </div>
+          <div class="balance-vs">⟷</div>
+          <div class="balance-side right">
+            <div class="label">Too little</div>
+            <p>Team slows down without a clear vision</p>
+          </div>
+          <!-- Row 2 -->
+          <div class="balance-side left">
+            <div class="label">No plan</div>
+            <p>Team doesn't know how to execute</p>
+          </div>
+          <div class="balance-vs">⟷</div>
+          <div class="balance-side right">
+            <div class="label">Too much planning</div>
+            <p>Team won't execute without approval</p>
+          </div>
+          <!-- Row 3 -->
+          <div class="balance-side left">
+            <div class="label">Too close</div>
+            <p>Proximity becomes an impediment to honest feedback</p>
+          </div>
+          <div class="balance-vs">⟷</div>
+          <div class="balance-side right">
+            <div class="label">Too distant</div>
+            <p>You lose the trust needed to lead effectively</p>
+          </div>
+          <!-- Row 4 -->
+          <div class="balance-side left">
+            <div class="label">Over-ownership</div>
+            <p>Team only executes at the boss's instruction</p>
+          </div>
+          <div class="balance-vs">⟷</div>
+          <div class="balance-side right">
+            <div class="label">Under-ownership</div>
+            <p>No accountability; work drifts without a holder</p>
+          </div>
         </div>
 
-        <div class="border-l-4 border-orange-500 bg-orange-50 p-5 rounded-r-lg">
-          <h3 class="text-base font-bold text-gray-900 mb-1">No plan / Too much planning</h3>
-          <p class="text-sm text-gray-700">Team doesn't know how to execute &nbsp;/&nbsp; Team is reluctant to execute without approval</p>
+        <div class="callout purple">
+          <div class="callout-label">Core Principle</div>
+          <p style="font-size:0.9rem; color: var(--text);">Balance must be <strong>evaluated continuously and modulated for specific needs.</strong> A team member who falls behind needs closer management — once they're back on track, ease off.</p>
         </div>
 
-        <div class="border-l-4 border-yellow-500 bg-yellow-50 p-5 rounded-r-lg">
-          <h3 class="text-base font-bold text-gray-900 mb-1">Standards vs. Flexibility</h3>
-          <p class="text-sm text-gray-700">Must hold the line with standards but notice when flexibility can be had.</p>
-        </div>
-
-        <div class="border-l-4 border-green-600 bg-green-50 p-5 rounded-r-lg">
-          <h3 class="text-base font-bold text-gray-900 mb-1">Close but not too close</h3>
-          <p class="text-sm text-gray-700">Leaders must be close with their people but not so close that it becomes an impediment to delivering feedback.</p>
-        </div>
-
-        <div class="border-l-4 border-blue-600 bg-blue-50 p-5 rounded-r-lg">
-          <h3 class="text-base font-bold text-gray-900 mb-1">Ownership without over-control</h3>
-          <p class="text-sm text-gray-700">Leaders must have ownership but not so much that the team only executes at the instruction of the boss.</p>
-        </div>
-
-        <div class="border-l-4 border-purple-600 bg-purple-50 p-5 rounded-r-lg">
-          <h3 class="text-base font-bold text-gray-900 mb-2">Balance must be evaluated and modulated continuously</h3>
-          <p class="text-sm text-gray-700 italic">Example: if a team member falls behind, they may need more direct management. When they start performing to the standard, it's time to back off.</p>
-        </div>
-
-        <div class="border-l-4 border-indigo-600 bg-indigo-50 p-5 rounded-r-lg">
-          <h3 class="text-base font-bold text-gray-900 mb-1">Doing the small things well</h3>
-          <p class="text-sm text-gray-700">Increases trust — and when it matters, pushing back is well received.</p>
-        </div>
-
-        <div class="border-l-4 border-pink-600 bg-pink-50 p-5 rounded-r-lg">
-          <h3 class="text-base font-bold text-gray-900 mb-1">Solid cross-functional relationships</h3>
-          <p class="text-sm text-gray-700">Treat other departments with mutual respect and trust.</p>
-        </div>
-
-        <div class="border-l-4 border-teal-600 bg-teal-50 p-5 rounded-r-lg">
-          <h3 class="text-base font-bold text-gray-900 mb-1">Humble enough to accept feedback</h3>
-          <p class="text-sm text-gray-700">Must also be ready to hold the line when accepting feedback risks the larger mission. It's better to not execute a bad plan than to carry it out to the detriment of the team.</p>
-        </div>
-
-        <div class="border-l-4 border-gray-500 bg-gray-50 p-5 rounded-r-lg">
-          <h3 class="text-base font-bold text-gray-900 mb-1">Focused but detached</h3>
-          <p class="text-sm text-gray-700">Don't get bogged down by the details. Step out of the smaller details and see the bigger picture.</p>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1rem;">
+          <div class="quality-chip">
+            <h3>Doing small things well</h3>
+            <p>Builds trust — when it matters, your pushback lands.</p>
+          </div>
+          <div class="quality-chip">
+            <h3>Solid cross-functional relationships</h3>
+            <p>Treat every department with mutual respect.</p>
+          </div>
+          <div class="quality-chip">
+            <h3>Humble enough to accept feedback</h3>
+            <p>But hold the line when it risks the larger mission. A bad plan is better unexecuted.</p>
+          </div>
+          <div class="quality-chip">
+            <h3>Focused but detached</h3>
+            <p>Step back from the details to see the bigger picture.</p>
+          </div>
         </div>
 
       </div>
     </div>
 
     <!-- Leadership Qualities -->
-    <div class="bg-white shadow-sm border border-gray-200 rounded-lg mb-10">
-      <div class="bg-gray-100 border-b border-gray-200 px-6 py-4">
-        <h2 class="text-2xl font-bold text-gray-900">Leadership Qualities</h2>
+    <div class="card">
+      <div class="card-head">
+        <div class="icon icon-red">🎯</div>
+        <div>
+          <h2>Leadership Qualities</h2>
+          <p>What strong engineering leaders consistently do</p>
+        </div>
       </div>
-      <div class="p-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-          <div class="border border-gray-200 rounded-lg p-4">
-            <h3 class="font-bold text-gray-900 mb-1">Calm under pressure</h3>
-            <p class="text-sm text-gray-600">Thinking clearly and making effective decisions in challenging situations.</p>
+      <div class="card-body">
+
+        <div class="quality-grid" style="margin-bottom:1.5rem;">
+          <div class="quality-chip">
+            <h3>Calm under pressure</h3>
+            <p>Think clearly and make effective decisions in challenging situations.</p>
           </div>
-          <div class="border border-gray-200 rounded-lg p-4">
-            <h3 class="font-bold text-gray-900 mb-1">Competent</h3>
-            <p class="text-sm text-gray-600">Continuously building expertise and credibility with your team.</p>
+          <div class="quality-chip">
+            <h3>Competent</h3>
+            <p>Continuously build expertise and credibility with your team.</p>
           </div>
-          <div class="border border-gray-200 rounded-lg p-4">
-            <h3 class="font-bold text-gray-900 mb-1">"Working yourself out of a job"</h3>
-            <p class="text-sm text-gray-600">Building the team's capability so they can operate independently.</p>
+          <div class="quality-chip">
+            <h3>"Working yourself out of a job"</h3>
+            <p>Build team capability so they can operate independently.</p>
           </div>
-          <div class="border border-gray-200 rounded-lg p-4">
-            <h3 class="font-bold text-gray-900 mb-1">Navigating leadership and followership</h3>
-            <p class="text-sm text-gray-600">The dichotomy every leader must strike — ready to lead and ready to follow.</p>
+          <div class="quality-chip">
+            <h3>Leadership ↔ Followership</h3>
+            <p>Be ready to lead and ready to follow. The dichotomy every leader must strike.</p>
           </div>
-          <div class="border border-gray-200 rounded-lg p-4 md:col-span-2">
-            <h3 class="font-bold text-gray-900 mb-1">Taking ownership of mistakes — no blame culture</h3>
-            <p class="text-sm text-gray-600">We win as a team and fail as a team.</p>
+          <div class="quality-chip" style="grid-column: 1 / -1;">
+            <h3>Take ownership of mistakes — no blame culture</h3>
+            <p>We win as a team and fail as a team.</p>
           </div>
         </div>
 
-        <div class="bg-gray-50 border border-gray-200 rounded-lg p-5">
-          <h3 class="font-bold text-gray-900 mb-3">Four Principles of Extreme Ownership</h3>
-          <div class="space-y-3">
-            <div class="flex gap-3">
-              <span class="bg-red-800 text-white text-xs font-bold px-2 py-1 rounded shrink-0 h-fit">1</span>
-              <div>
-                <p class="font-semibold text-sm text-gray-900">Cover and move</p>
-                <p class="text-sm text-gray-600">Teamwork and mutual support — breakdown silos, win as a team, fail as a team.</p>
-              </div>
-            </div>
-            <div class="flex gap-3">
-              <span class="bg-red-800 text-white text-xs font-bold px-2 py-1 rounded shrink-0 h-fit">2</span>
-              <div>
-                <p class="font-semibold text-sm text-gray-900">Complexity breeds chaos</p>
-                <p class="text-sm text-gray-600">Instructions must be clear and concise.</p>
-              </div>
-            </div>
-            <div class="flex gap-3">
-              <span class="bg-red-800 text-white text-xs font-bold px-2 py-1 rounded shrink-0 h-fit">3</span>
-              <div>
-                <p class="font-semibold text-sm text-gray-900">Prioritize and execute</p>
-                <p class="text-sm text-gray-600">Clearly communicate priorities.</p>
-              </div>
-            </div>
-            <div class="flex gap-3">
-              <span class="bg-red-800 text-white text-xs font-bold px-2 py-1 rounded shrink-0 h-fit">4</span>
-              <div>
-                <p class="font-semibold text-sm text-gray-900">Decentralize command</p>
-                <p class="text-sm text-gray-600">Tell the team what to do AND why they are doing it.</p>
-              </div>
-            </div>
+        <p style="font-size:0.8rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin-bottom:1rem;">Four Principles of Extreme Ownership</p>
+
+        <div class="principle">
+          <div class="num">1</div>
+          <div>
+            <h3>Cover and move</h3>
+            <p>Teamwork and mutual support — break down silos; win as a team, fail as a team.</p>
           </div>
         </div>
+        <div class="principle">
+          <div class="num">2</div>
+          <div>
+            <h3>Complexity breeds chaos</h3>
+            <p>Instructions must be clear and concise.</p>
+          </div>
+        </div>
+        <div class="principle">
+          <div class="num">3</div>
+          <div>
+            <h3>Prioritize and execute</h3>
+            <p>Clearly communicate priorities — one thing at a time.</p>
+          </div>
+        </div>
+        <div class="principle">
+          <div class="num">4</div>
+          <div>
+            <h3>Decentralize command</h3>
+            <p>Tell the team what to do AND <em>why</em> they are doing it.</p>
+          </div>
+        </div>
+
       </div>
     </div>
 
-    <!-- ── SEGMENT 2: MANAGER'S PATH ──────────────────────────────────── -->
-    <div class="mb-4">
-      <div class="flex items-center gap-3 mb-6">
-        <div class="h-1 flex-1 bg-blue-200"></div>
-        <h2 class="text-2xl font-bold text-gray-800 whitespace-nowrap">Segment 2: Manager's Path</h2>
-        <div class="h-1 flex-1 bg-blue-200"></div>
-      </div>
-      <p class="text-sm text-gray-500 italic mb-6 text-center">Further Reading: <em>The Manager's Path</em> by Camille Fournier</p>
-    </div>
 
-    <!-- Communication -->
-    <div class="bg-white shadow-sm border border-gray-200 rounded-lg mb-6">
-      <div class="bg-blue-800 px-6 py-4 rounded-t-lg">
-        <h2 class="text-xl font-bold text-white">Communication</h2>
-      </div>
-      <div class="p-6">
-        <blockquote class="border-l-4 border-blue-600 bg-blue-50 p-5 rounded-r-lg mb-4">
-          <p class="text-lg font-semibold text-blue-900 italic">Engineering leadership requires clear, consistent, empathetic communication.</p>
-        </blockquote>
-        <p class="text-gray-700">Leaders succeed by explaining the <strong>"why,"</strong> aligning expectations, and creating clarity.</p>
-      </div>
+    <!-- ══════════════════════════════════════════
+         SEGMENT 2: MANAGER'S PATH
+    ══════════════════════════════════════════ -->
+    <div class="segment-divider" id="managers-path">
+      <div class="seg-line"></div>
+      <span class="seg-pill purple">Segment 2 — Manager's Path</span>
+      <div class="seg-line"></div>
     </div>
+    <p class="reading-credit">Further Reading: <em>The Manager's Path</em> by Camille Fournier</p>
 
-    <!-- Leadership / Mindset Shift -->
-    <div class="bg-white shadow-sm border border-gray-200 rounded-lg mb-6">
-      <div class="bg-blue-800 px-6 py-4 rounded-t-lg">
-        <h2 class="text-xl font-bold text-white">Leadership Mindset</h2>
+    <!-- Communication + Leadership Mindset -->
+    <div class="card">
+      <div class="card-head">
+        <div class="icon icon-purple">💬</div>
+        <div>
+          <h2>Communication &amp; Leadership Mindset</h2>
+          <p>The fundamental shift every new manager must make</p>
+        </div>
       </div>
-      <div class="p-6 space-y-3">
-        <div class="flex gap-3 items-start">
-          <span class="text-blue-700 font-bold shrink-0">→</span>
-          <p class="text-gray-700">Management is a shift from <strong>personal output → team output</strong></p>
+      <div class="card-body">
+
+        <div class="callout purple" style="margin-bottom:1.5rem;">
+          <div class="callout-label">Central Theme</div>
+          <blockquote>Engineering leadership requires clear, consistent, empathetic communication.</blockquote>
         </div>
-        <div class="flex gap-3 items-start">
-          <span class="text-blue-700 font-bold shrink-0">→</span>
-          <p class="text-gray-700 italic">Leadership is a progression, not a title</p>
-        </div>
-        <div class="flex gap-3 items-start">
-          <span class="text-blue-700 font-bold shrink-0">→</span>
-          <p class="text-gray-700">Purpose of management: enabling outcomes through others</p>
-        </div>
-        <div class="flex gap-3 items-start">
-          <span class="text-blue-700 font-bold shrink-0">→</span>
-          <p class="text-gray-700">Mindset shift: success = team success</p>
-        </div>
-        <div class="flex gap-3 items-start">
-          <span class="text-blue-700 font-bold shrink-0">→</span>
-          <p class="text-gray-700">Pitfalls: micromanagement, lack of clarity, avoiding hard conversations</p>
-        </div>
-        <div class="flex gap-3 items-start">
-          <span class="text-blue-700 font-bold shrink-0">→</span>
-          <p class="text-gray-700">How IC skills translate — and don't — to management</p>
-        </div>
-        <div class="flex gap-3 items-start">
-          <span class="text-blue-700 font-bold shrink-0">→</span>
-          <p class="text-gray-700">Learning to measure impact differently</p>
-        </div>
-        <div class="bg-yellow-50 border border-yellow-300 rounded-lg p-4 mt-4">
-          <p class="font-semibold text-gray-900 text-sm mb-2">Discussion Questions</p>
-          <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
+
+        <div class="info-row"><span class="arrow">→</span><p>Management is a shift from <strong>personal output → team output</strong></p></div>
+        <div class="info-row"><span class="arrow">→</span><p><em>Leadership is a progression, not a title</em></p></div>
+        <div class="info-row"><span class="arrow">→</span><p>Purpose of management: <strong>enabling outcomes through others</strong></p></div>
+        <div class="info-row"><span class="arrow">→</span><p>Success = team success. Your performance review is theirs.</p></div>
+        <div class="info-row"><span class="arrow">→</span><p>Pitfalls: micromanagement, lack of clarity, avoiding hard conversations</p></div>
+        <div class="info-row"><span class="arrow">→</span><p>IC skills translate <strong>partially</strong> — but measuring impact looks completely different</p></div>
+
+        <div class="discussion">
+          <div class="d-label">Discussion</div>
+          <ul>
             <li>What do you believe a manager's job is?</li>
             <li>What motivated you to explore management?</li>
           </ul>
         </div>
+
       </div>
     </div>
 
     <!-- Effective 1:1s -->
-    <div class="bg-white shadow-sm border border-gray-200 rounded-lg mb-6">
-      <div class="bg-blue-800 px-6 py-4 rounded-t-lg">
-        <h2 class="text-xl font-bold text-white">Effective 1:1s</h2>
-      </div>
-      <div class="p-6 space-y-4">
-        <p class="text-gray-700">Engineering leadership requires clear, consistent, empathetic communication. Leaders succeed by explaining the <strong>"why,"</strong> aligning expectations, and creating clarity.</p>
-        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <p class="text-sm font-semibold text-blue-900 mb-1">Resource</p>
-          <p class="text-sm text-gray-700">First 1:1 template: <span class="text-blue-700 underline">larahogan.me/blog/first-one-on-one-questions</span></p>
+    <div class="card">
+      <div class="card-head">
+        <div class="icon icon-purple">🤝</div>
+        <div>
+          <h2>Effective 1:1s</h2>
+          <p>Your most important recurring meeting</p>
         </div>
-        <div class="bg-yellow-50 border border-yellow-300 rounded-lg p-4">
-          <p class="font-semibold text-gray-900 text-sm mb-2">Discussion Questions</p>
-          <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
+      </div>
+      <div class="card-body">
+        <p style="font-size:0.9rem; color:var(--muted); margin-bottom:1.25rem;">Leaders succeed by explaining the <strong style="color:var(--text)">"why,"</strong> aligning expectations, and creating clarity. The 1:1 is the primary venue for this.</p>
+        <a class="resource-link" href="https://larahogan.me/blog/first-one-on-one-questions/" target="_blank">↗ First 1:1 template — Lara Hogan</a>
+        <div class="discussion" style="margin-top:1rem;">
+          <div class="d-label">Discussion</div>
+          <ul>
             <li>What makes 1:1s effective or ineffective?</li>
             <li>How do you handle a conflict between two teammates?</li>
           </ul>
@@ -249,214 +751,209 @@
     </div>
 
     <!-- Performance Management -->
-    <div class="bg-white shadow-sm border border-gray-200 rounded-lg mb-6">
-      <div class="bg-blue-800 px-6 py-4 rounded-t-lg">
-        <h2 class="text-xl font-bold text-white">Performance Management</h2>
+    <div class="card">
+      <div class="card-head">
+        <div class="icon icon-gold">📊</div>
+        <div>
+          <h2>Performance Management</h2>
+          <p>Outcomes + behaviors, evaluated fairly and continuously</p>
+        </div>
       </div>
-      <div class="p-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div class="border border-gray-200 rounded-lg p-4">
-            <h3 class="font-bold text-gray-900 mb-1 text-sm">Defining Performance</h3>
-            <p class="text-sm text-gray-600">Outcomes + behaviors</p>
+      <div class="card-body">
+        <div class="quality-grid">
+          <div class="quality-chip">
+            <h3>Define performance clearly</h3>
+            <p>Outcomes + behaviors — not just delivery.</p>
           </div>
-          <div class="border border-gray-200 rounded-lg p-4">
-            <h3 class="font-bold text-gray-900 mb-1 text-sm">Avoiding Bias</h3>
-            <p class="text-sm text-gray-600">Watch for recency bias and halo effects — our brain's tendency to assume people skilled at one thing are skilled at everything.</p>
+          <div class="quality-chip">
+            <h3>Avoid recency bias &amp; halo effects</h3>
+            <p>Don't let the last two weeks or one strength color everything.</p>
           </div>
-          <div class="border border-gray-200 rounded-lg p-4">
-            <h3 class="font-bold text-gray-900 mb-1 text-sm">Document Continuously</h3>
-            <p class="text-sm text-gray-600">Don't rely on memory at review time — document performance observations regularly.</p>
+          <div class="quality-chip">
+            <h3>Document continuously</h3>
+            <p>Don't rely on memory at review time.</p>
           </div>
-          <div class="border border-gray-200 rounded-lg p-4">
-            <h3 class="font-bold text-gray-900 mb-1 text-sm">Tough Conversations</h3>
-            <p class="text-sm text-gray-600">Navigate difficult performance discussions compassionately and directly.</p>
-          </div>
-          <div class="border border-gray-200 rounded-lg p-4">
-            <h3 class="font-bold text-gray-900 mb-1 text-sm">Fair Promotions</h3>
-            <p class="text-sm text-gray-600">Ground promotion decisions in evidence, not recency or personal affinity.</p>
+          <div class="quality-chip">
+            <h3>Fair, evidence-based promotions</h3>
+            <p>Ground every decision in observed outcomes, not affinity.</p>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Feedback Models -->
-    <div class="bg-white shadow-sm border border-gray-200 rounded-lg mb-6">
-      <div class="bg-blue-800 px-6 py-4 rounded-t-lg">
-        <h2 class="text-xl font-bold text-white">Feedback Models</h2>
+    <div class="card">
+      <div class="card-head">
+        <div class="icon icon-blue">🔄</div>
+        <div>
+          <h2>Feedback Models</h2>
+          <p>SBI and COIN — two frameworks for clarity</p>
+        </div>
       </div>
-      <div class="p-6 space-y-5">
-        <p class="text-gray-700">Feedback types: <strong>reinforcing</strong> vs. <strong>constructive</strong></p>
+      <div class="card-body">
+        <p style="font-size:0.88rem; color:var(--muted); margin-bottom:1.25rem;">Feedback types: <strong style="color:var(--text)">reinforcing</strong> (keep doing this) vs. <strong style="color:var(--text)">constructive</strong> (change this).</p>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <div class="border-2 border-blue-300 rounded-lg p-5">
-            <h3 class="font-bold text-blue-900 mb-3">SBI Framework</h3>
-            <div class="space-y-2 text-sm">
-              <div class="flex gap-2"><span class="font-bold text-blue-700 w-5 shrink-0">S</span><span class="text-gray-700"><strong>Situation</strong> — the context in which the behavior occurred</span></div>
-              <div class="flex gap-2"><span class="font-bold text-blue-700 w-5 shrink-0">B</span><span class="text-gray-700"><strong>Behavior</strong> — the specific observable action</span></div>
-              <div class="flex gap-2"><span class="font-bold text-blue-700 w-5 shrink-0">I</span><span class="text-gray-700"><strong>Impact</strong> — the effect it had on the team/project</span></div>
-            </div>
+        <div class="framework-grid">
+          <div class="framework-box sbi">
+            <h3>SBI Framework</h3>
+            <div class="letter-row"><div class="letter-badge">S</div><p><strong>Situation</strong> — the context in which it occurred</p></div>
+            <div class="letter-row"><div class="letter-badge">B</div><p><strong>Behavior</strong> — the specific observable action</p></div>
+            <div class="letter-row"><div class="letter-badge">I</div><p><strong>Impact</strong> — the effect on people or work</p></div>
           </div>
-
-          <div class="border-2 border-green-300 rounded-lg p-5">
-            <h3 class="font-bold text-green-900 mb-3">COIN Framework</h3>
-            <div class="space-y-2 text-sm">
-              <div class="flex gap-2"><span class="font-bold text-green-700 w-5 shrink-0">C</span><span class="text-gray-700"><strong>Context</strong> — in what situation did the events take place</span></div>
-              <div class="flex gap-2"><span class="font-bold text-green-700 w-5 shrink-0">O</span><span class="text-gray-700"><strong>Observation</strong> — objective facts, not perceptions</span></div>
-              <div class="flex gap-2"><span class="font-bold text-green-700 w-5 shrink-0">I</span><span class="text-gray-700"><strong>Impact</strong> — how it affected people, team, performance</span></div>
-              <div class="flex gap-2"><span class="font-bold text-green-700 w-5 shrink-0">N</span><span class="text-gray-700"><strong>Next Steps</strong> — what can be done to improve going forward</span></div>
-            </div>
+          <div class="framework-box coin">
+            <h3>COIN Framework</h3>
+            <div class="letter-row"><div class="letter-badge">C</div><p><strong>Context</strong> — the situation / setting</p></div>
+            <div class="letter-row"><div class="letter-badge">O</div><p><strong>Observation</strong> — objective facts, not perceptions</p></div>
+            <div class="letter-row"><div class="letter-badge">I</div><p><strong>Impact</strong> — consequences for team or outcomes</p></div>
+            <div class="letter-row"><div class="letter-badge">N</div><p><strong>Next Steps</strong> — what should change or continue</p></div>
           </div>
         </div>
 
-        <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
-          <p class="font-semibold text-gray-900 text-sm mb-2">Principles for effective feedback</p>
-          <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
-            <li>Ensure feedback is actionable, kind, and specific</li>
-            <li>Build a feedback culture: model it, make it frequent, normalize it</li>
-            <li>Receive feedback without defensiveness</li>
-          </ul>
+        <div class="callout gold">
+          <div class="callout-label">Principles</div>
+          <p style="font-size:0.88rem; color:var(--muted);">Feedback must be <strong style="color:var(--text)">actionable, kind, and specific.</strong> Build a culture by modeling it, making it frequent, and normalizing the act of receiving it without defensiveness.</p>
         </div>
       </div>
     </div>
 
     <!-- Healthy Engineering Cultures -->
-    <div class="bg-white shadow-sm border border-gray-200 rounded-lg mb-6">
-      <div class="bg-blue-800 px-6 py-4 rounded-t-lg">
-        <h2 class="text-xl font-bold text-white">Healthy Engineering Cultures Require Intentionality</h2>
-      </div>
-      <div class="p-6 space-y-4">
-        <blockquote class="border-l-4 border-blue-600 bg-blue-50 p-4 rounded-r-lg">
-          <p class="font-bold text-blue-900 italic">Good culture is engineered, not accidental.</p>
-        </blockquote>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <div class="flex gap-2 items-start"><span class="text-blue-700 shrink-0">✓</span><p class="text-sm text-gray-700">Psychological safety</p></div>
-          <div class="flex gap-2 items-start"><span class="text-blue-700 shrink-0">✓</span><p class="text-sm text-gray-700">Blameless postmortems</p></div>
-          <div class="flex gap-2 items-start"><span class="text-blue-700 shrink-0">✓</span><p class="text-sm text-gray-700">Scalable on-call practices</p></div>
-          <div class="flex gap-2 items-start"><span class="text-blue-700 shrink-0">✓</span><p class="text-sm text-gray-700">Sustainable engineering pace</p></div>
-          <div class="flex gap-2 items-start md:col-span-2"><span class="text-blue-700 shrink-0">✓</span><p class="text-sm text-gray-700">Investing in both people and technical foundations</p></div>
-        </div>
-        <div class="bg-yellow-50 border border-yellow-300 rounded-lg p-4">
-          <p class="font-semibold text-gray-900 text-sm">Discussion Question</p>
-          <p class="text-sm text-gray-700 mt-1">What do new managers struggle with most?</p>
+    <div class="card">
+      <div class="card-head">
+        <div class="icon icon-teal">🏗️</div>
+        <div>
+          <h2>Healthy Engineering Cultures</h2>
+          <p>Require intentionality — good culture is engineered, not accidental</p>
         </div>
       </div>
-    </div>
-
-    <!-- Managing Up & Cross-functionally -->
-    <div class="bg-white shadow-sm border border-gray-200 rounded-lg mb-6">
-      <div class="bg-blue-800 px-6 py-4 rounded-t-lg">
-        <h2 class="text-xl font-bold text-white">Managing Up &amp; Cross-functionally</h2>
-        <p class="text-sm text-blue-200 mt-1">Influence without authority</p>
-      </div>
-      <div class="p-6 space-y-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="border-l-4 border-blue-500 bg-blue-50 p-4 rounded-r-lg">
-            <h3 class="font-bold text-gray-900 text-sm mb-1">Communicating with executives</h3>
-            <p class="text-sm text-gray-600">Crisp and outcome-oriented — lead with the business impact.</p>
-          </div>
-          <div class="border-l-4 border-purple-500 bg-purple-50 p-4 rounded-r-lg">
-            <h3 class="font-bold text-gray-900 text-sm mb-1">Stakeholder mapping</h3>
-            <p class="text-sm text-gray-600">Understand who needs what, and when.</p>
-          </div>
-          <div class="border-l-4 border-orange-500 bg-orange-50 p-4 rounded-r-lg">
-            <h3 class="font-bold text-gray-900 text-sm mb-1">Escalating risks</h3>
-            <p class="text-sm text-gray-600">Escalate risks early and cleanly — never surprise your stakeholders.</p>
-          </div>
-          <div class="border-l-4 border-green-500 bg-green-50 p-4 rounded-r-lg">
-            <h3 class="font-bold text-gray-900 text-sm mb-1">Cross-functional partnerships</h3>
-            <p class="text-sm text-gray-600">Build strong partnerships with Product &amp; Design.</p>
-          </div>
+      <div class="card-body">
+        <div class="callout accent" style="margin-bottom:1.25rem;">
+          <blockquote>Good culture is engineered, not accidental.</blockquote>
+        </div>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:0.6rem;">
+          <div class="quality-chip"><h3>Psychological safety</h3><p>People speak up without fear.</p></div>
+          <div class="quality-chip"><h3>Blameless postmortems</h3><p>Learn from failures without punishment.</p></div>
+          <div class="quality-chip"><h3>Scalable on-call practices</h3><p>Sustainable, distributed, fair.</p></div>
+          <div class="quality-chip"><h3>Sustainable engineering pace</h3><p>Avoid burnout through rhythm, not urgency.</p></div>
+        </div>
+        <div class="discussion">
+          <div class="d-label">Discussion</div>
+          <ul><li>What do new managers struggle with most?</li></ul>
         </div>
       </div>
     </div>
 
-    <!-- Overcoming Adversity: 5 Whys -->
-    <div class="bg-white shadow-sm border border-gray-200 rounded-lg mb-6">
-      <div class="bg-blue-800 px-6 py-4 rounded-t-lg">
-        <h2 class="text-xl font-bold text-white">Overcoming Adversity with Cross-Functional Partners</h2>
-        <p class="text-sm text-blue-200 mt-1">The "Five Whys of Objection" Method</p>
-      </div>
-      <div class="p-6 space-y-4">
-        <p class="text-gray-700">When someone pushes back, diagnose the real reason before responding:</p>
-        <div class="space-y-2">
-          <div class="flex gap-3 items-start">
-            <span class="bg-blue-800 text-white text-xs font-bold px-2 py-1 rounded shrink-0">1</span>
-            <p class="text-sm text-gray-700">They <strong>don't understand</strong></p>
-          </div>
-          <div class="flex gap-3 items-start">
-            <span class="bg-blue-800 text-white text-xs font-bold px-2 py-1 rounded shrink-0">2</span>
-            <p class="text-sm text-gray-700">They <strong>don't agree</strong></p>
-          </div>
-          <div class="flex gap-3 items-start">
-            <span class="bg-blue-800 text-white text-xs font-bold px-2 py-1 rounded shrink-0">3</span>
-            <p class="text-sm text-gray-700">They <strong>don't care</strong></p>
-          </div>
-          <div class="flex gap-3 items-start">
-            <span class="bg-blue-800 text-white text-xs font-bold px-2 py-1 rounded shrink-0">4</span>
-            <p class="text-sm text-gray-700">They <strong>don't believe it will work</strong></p>
-          </div>
-          <div class="flex gap-3 items-start">
-            <span class="bg-blue-800 text-white text-xs font-bold px-2 py-1 rounded shrink-0">5</span>
-            <p class="text-sm text-gray-700">They <strong>feel threatened or overwhelmed</strong></p>
-          </div>
+    <!-- Managing Up -->
+    <div class="card">
+      <div class="card-head">
+        <div class="icon icon-purple">🧭</div>
+        <div>
+          <h2>Managing Up &amp; Cross-functionally</h2>
+          <p>Influence without authority</p>
         </div>
-        <p class="text-gray-700 text-sm italic">You tailor your influence strategy based on which "why" you're solving.</p>
-
-        <div class="border-t border-gray-200 pt-4">
-          <h3 class="font-bold text-gray-900 mb-3">The 3 C's: Clarity → Constraints → Collaboration</h3>
-          <div class="space-y-3">
-            <div class="border-l-4 border-blue-500 pl-4">
-              <p class="font-semibold text-sm text-gray-900">1. Clarity</p>
-              <p class="text-sm text-gray-600">Explain exactly what you want, why, and by when. <em>Ambiguity kills influence.</em></p>
-            </div>
-            <div class="border-l-4 border-orange-500 pl-4">
-              <p class="font-semibold text-sm text-gray-900">2. Constraints</p>
-              <p class="text-sm text-gray-600">Show how your proposal works within reality: engineering capacity, design timeline, product priorities, customer needs.</p>
-            </div>
-            <div class="border-l-4 border-green-500 pl-4">
-              <p class="font-semibold text-sm text-gray-900">3. Collaboration</p>
-              <p class="text-sm text-gray-600">Invite partnership, not obedience. People respond better to "let's solve this together" than "please do this."</p>
-            </div>
-          </div>
+      </div>
+      <div class="card-body">
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:0.75rem; margin-bottom:1.5rem;">
+          <div class="quality-chip"><h3>Communicating with executives</h3><p>Crisp and outcome-oriented — lead with business impact.</p></div>
+          <div class="quality-chip"><h3>Stakeholder mapping</h3><p>Understand who needs what, and when.</p></div>
+          <div class="quality-chip"><h3>Escalating risks early</h3><p>Never surprise your stakeholders.</p></div>
+          <div class="quality-chip"><h3>Cross-functional partnerships</h3><p>Build durable relationships with Product &amp; Design.</p></div>
         </div>
       </div>
     </div>
 
-    <!-- Stakeholder Mapping -->
-    <div class="bg-white shadow-sm border border-gray-200 rounded-lg mb-10">
-      <div class="bg-blue-800 px-6 py-4 rounded-t-lg">
-        <h2 class="text-xl font-bold text-white">Overcoming Adversity with Executive Comms</h2>
-        <p class="text-sm text-blue-200 mt-1">The Stakeholder Mapping + Influence Strategy</p>
+    <!-- 5 Whys of Objection -->
+    <div class="card">
+      <div class="card-head">
+        <div class="icon icon-red">🔍</div>
+        <div>
+          <h2>Overcoming Adversity with Cross-Functional Partners</h2>
+          <p>The "Five Whys of Objection" method</p>
+        </div>
       </div>
-      <div class="p-6 space-y-4">
-        <p class="text-gray-700 text-sm italic font-semibold">A go-to executive-level approach.</p>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <h3 class="font-bold text-gray-900 mb-2 text-sm">Step 1: Map stakeholders by:</h3>
-            <ul class="text-sm text-gray-700 space-y-1">
-              <li><strong>Power:</strong> decision-making authority</li>
-              <li><strong>Interest:</strong> how much they care</li>
-            </ul>
+      <div class="card-body">
+        <p style="font-size:0.88rem; color:var(--muted); margin-bottom:1.1rem;">When someone pushes back, diagnose the real reason before responding. Tailor your strategy to match the actual blocker.</p>
+
+        <div class="why-list" style="margin-bottom:1.75rem;">
+          <div class="why-item"><span class="w-num">01</span><p>They <strong>don't understand</strong> <span>→ educate</span></p></div>
+          <div class="why-item"><span class="w-num">02</span><p>They <strong>don't agree</strong> <span>→ align on facts</span></p></div>
+          <div class="why-item"><span class="w-num">03</span><p>They <strong>don't care</strong> <span>→ connect to their priorities</span></p></div>
+          <div class="why-item"><span class="w-num">04</span><p>They <strong>don't believe it will work</strong> <span>→ prove with evidence</span></p></div>
+          <div class="why-item"><span class="w-num">05</span><p>They <strong>feel threatened or overwhelmed</strong> <span>→ reduce the ask</span></p></div>
+        </div>
+
+        <p style="font-size:0.8rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin-bottom:0.9rem;">The 3 C's</p>
+        <div class="flow-row">
+          <div class="flow-step">
+            <div class="fs-num">📍</div>
+            <h4>Clarity</h4>
+            <p>Explain exactly what, why, and by when. <em>Ambiguity kills influence.</em></p>
           </div>
-          <div>
-            <h3 class="font-bold text-gray-900 mb-2 text-sm">Step 2: Tailor your approach:</h3>
-            <ul class="text-sm text-gray-700 space-y-1">
-              <li><strong>High power, high interest</strong> → co-create the plan</li>
-              <li><strong>High power, low interest</strong> → speak in business outcomes</li>
-              <li><strong>Low power, high interest</strong> → use as advocates</li>
-              <li><strong>Low power, low interest</strong> → inform</li>
-            </ul>
+          <div class="flow-arrow">›</div>
+          <div class="flow-step">
+            <div class="fs-num">🔧</div>
+            <h4>Constraints</h4>
+            <p>Show how your proposal works within real limits: capacity, timeline, priorities.</p>
+          </div>
+          <div class="flow-arrow">›</div>
+          <div class="flow-step">
+            <div class="fs-num">🤝</div>
+            <h4>Collaboration</h4>
+            <p>"Let's solve this together" beats "please do this."</p>
           </div>
         </div>
-        <p class="text-sm text-gray-700 italic">This ensures you're using energy where it matters.</p>
+
       </div>
     </div>
 
-    <!-- Footer -->
-    <div class="text-center text-sm text-gray-400 border-t border-gray-200 pt-6">
-      <a href="../../index.html" class="text-blue-600 hover:underline">← Back to Engineering Leadership Program</a>
+    <!-- Executive Comms / Stakeholder Matrix -->
+    <div class="card">
+      <div class="card-head">
+        <div class="icon icon-purple">📡</div>
+        <div>
+          <h2>Overcoming Adversity with Executive Comms</h2>
+          <p>Stakeholder Mapping + Influence Strategy</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p style="font-size:0.88rem; color:var(--muted); margin-bottom:1.25rem;">Map stakeholders by <strong style="color:var(--text)">Power</strong> (decision-making authority) and <strong style="color:var(--text)">Interest</strong> (how much they care). Then tailor your approach accordingly.</p>
+
+        <div class="matrix">
+          <div class="matrix-cell highlight">
+            <div class="mc-label">High Power · High Interest</div>
+            <h4>Co-create the plan</h4>
+            <p>These are your most critical relationships — involve them early.</p>
+          </div>
+          <div class="matrix-cell">
+            <div class="mc-label">High Power · Low Interest</div>
+            <h4>Speak in business outcomes</h4>
+            <p>Lead with impact; keep it brief.</p>
+          </div>
+          <div class="matrix-cell">
+            <div class="mc-label">Low Power · High Interest</div>
+            <h4>Use as advocates</h4>
+            <p>They care and can amplify your message upward.</p>
+          </div>
+          <div class="matrix-cell">
+            <div class="mc-label">Low Power · Low Interest</div>
+            <h4>Inform</h4>
+            <p>Keep in the loop; don't over-invest.</p>
+          </div>
+        </div>
+
+        <div class="callout purple" style="margin-top:1.25rem;">
+          <div class="callout-label">Key Insight</div>
+          <p style="font-size:0.88rem; color:var(--muted);">This ensures you're <strong style="color:var(--text)">using energy where it matters</strong> — not treating every stakeholder the same way.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Back link -->
+    <div style="text-align:center; padding-top:2rem; border-top:1px solid var(--border);">
+      <a href="../../index.html" style="color:var(--muted); text-decoration:none; font-size:0.85rem; transition:color 0.2s;" onmouseover="this.style.color='var(--accent2)'" onmouseout="this.style.color='var(--muted)'">← Back to Engineering Leadership Program</a>
     </div>
 
   </div>
+
 </body>
 </html>
