@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Session 6: Aligning to Business Outcomes</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #21243a;
+      --blue: #3b82f6;
+      --blue-light: #60a5fa;
+      --amber: #f59e0b;
+      --amber-light: #fbbf24;
+      --gold: #f5c518;
+      --red: #f87171;
+      --green: #34d399;
+      --text: #eaeaea;
+      --muted: #8b8fa8;
+      --border: rgba(255,255,255,0.07);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ── TOP NAV ── */
+    .top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(15,17,23,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.85rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .top-nav .back {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+    .top-nav .back:hover { color: var(--blue-light); }
+    .top-nav .session-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--blue);
+    }
+    .top-nav .pill-nav {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .top-nav .pill-nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .top-nav .pill-nav a:hover {
+      color: var(--text);
+      border-color: var(--blue);
+      background: rgba(59,130,246,0.08);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 52vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 8rem 2rem 4rem;
+      background:
+        radial-gradient(ellipse at 70% 0%, rgba(245,158,11,0.15) 0%, transparent 55%),
+        radial-gradient(ellipse at 0% 90%, rgba(59,130,246,0.08) 0%, transparent 50%),
+        var(--bg);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: '06';
+      position: absolute;
+      right: 6%;
+      bottom: -2rem;
+      font-size: clamp(10rem, 20vw, 18rem);
+      font-weight: 900;
+      color: rgba(255,255,255,0.025);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 860px; }
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 1rem;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 span { color: var(--amber-light); }
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 640px;
+      margin-bottom: 1.75rem;
+    }
+    .book-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .book-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      border: 1px solid;
+      color: var(--amber-light);
+      border-color: rgba(245,158,11,0.4);
+      background: rgba(245,158,11,0.08);
+    }
+
+    /* ── LAYOUT ── */
+    .page-body {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    /* ── SEGMENT DIVIDER ── */
+    .segment-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 4rem 0 2.5rem;
+    }
+    .segment-divider .seg-line { flex: 1; height: 1px; background: var(--border); }
+    .seg-pill {
+      padding: 0.4rem 1.2rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      background: rgba(59,130,246,0.12);
+      color: var(--blue-light);
+      border: 1px solid rgba(59,130,246,0.3);
+    }
+
+    .reading-credit {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+    .card-head {
+      padding: 1.25rem 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .card-head .icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.15rem;
+      flex-shrink: 0;
+      background: rgba(59,130,246,0.15);
+    }
+    .card-head h2 { font-size: 1.15rem; font-weight: 700; }
+    .card-head p  { font-size: 0.8rem; color: var(--muted); margin-top: 0.1rem; }
+    .card-body { padding: 1.75rem; }
+
+    /* ── BIG QUOTE ── */
+    .big-quote {
+      background: rgba(59,130,246,0.07);
+      border: 1px solid rgba(59,130,246,0.2);
+      border-left: 4px solid var(--blue);
+      border-radius: 12px;
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 1rem;
+    }
+    .big-quote p { font-size: 1.05rem; font-style: italic; color: var(--blue-light); line-height: 1.6; }
+    .big-quote.large p { font-size: 1.35rem; font-weight: 700; }
+    .big-quote.amber {
+      background: rgba(245,158,11,0.07);
+      border-color: rgba(245,158,11,0.2);
+      border-left-color: var(--amber);
+    }
+    .big-quote.amber p { color: var(--amber-light); }
+
+    /* ── STATS ROW ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .stat-box {
+      background: rgba(245,158,11,0.07);
+      border: 1px solid rgba(245,158,11,0.2);
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+    .stat-box .stat-num {
+      font-size: 2.25rem;
+      font-weight: 900;
+      color: var(--amber-light);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .stat-box p { font-size: 0.8rem; color: var(--muted); line-height: 1.4; }
+
+    /* ── NUMBERED STACK (Objectives/Key Results, Superpowers) ── */
+    .ideals-stack { display: flex; flex-direction: column; gap: 0.75rem; }
+    .ideal-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.1rem 1.25rem;
+    }
+    .ideal-num {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: rgba(59,130,246,0.15);
+      border: 1px solid rgba(59,130,246,0.3);
+      color: var(--blue-light);
+      font-size: 0.9rem;
+      font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .ideal-item h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.25rem; color: var(--text); }
+    .ideal-item p  { font-size: 0.85rem; color: var(--muted); }
+
+    /* ── TWO-COLUMN CONTRAST (kills/enables style) ── */
+    .flow-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .flow-col {
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+    .flow-col.kills {
+      background: rgba(239,68,68,0.07);
+      border: 1px solid rgba(239,68,68,0.2);
+    }
+    .flow-col.enables {
+      background: rgba(52,211,153,0.07);
+      border: 1px solid rgba(52,211,153,0.2);
+    }
+    .flow-col h3 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 0.85rem;
+    }
+    .flow-col.kills h3 { color: var(--red); }
+    .flow-col.enables h3 { color: var(--green); }
+    .flow-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .flow-col li { font-size: 0.85rem; color: var(--muted); display: flex; gap: 0.5rem; align-items: flex-start; }
+    .flow-col.kills li::before { content: '✕'; color: var(--red); font-weight: 700; flex-shrink: 0; }
+    .flow-col.enables li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+
+    /* ── 2x2 GRID (Superpowers, CFRs) ── */
+    .psych-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .psych-box {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.1rem;
+    }
+    .psych-box h4 { font-size: 0.9rem; font-weight: 700; color: var(--blue-light); margin-bottom: 0.35rem; }
+    .psych-box p  { font-size: 0.83rem; color: var(--muted); }
+
+    /* ── OUTPUT VS OUTCOME SPLIT ── */
+    .joy-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .joy-col {
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+    .joy-col.low {
+      background: rgba(239,68,68,0.07);
+      border: 1px solid rgba(239,68,68,0.2);
+    }
+    .joy-col.high {
+      background: rgba(52,211,153,0.07);
+      border: 1px solid rgba(52,211,153,0.2);
+    }
+    .joy-col h3 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 0.85rem;
+    }
+    .joy-col.low h3  { color: var(--red); }
+    .joy-col.high h3 { color: var(--green); }
+    .joy-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .joy-col li { font-size: 0.85rem; color: var(--muted); display: flex; gap: 0.5rem; align-items: flex-start; }
+    .joy-col.low  li::before { content: '—'; color: var(--red); font-weight: 700; flex-shrink: 0; }
+    .joy-col.high li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+
+    /* ── 3-UP GRID (Build-Measure-Learn, CFRs) ── */
+    .silos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .silos-col {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.1rem;
+    }
+    .silos-col h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--amber-light);
+      margin-bottom: 0.75rem;
+    }
+    .silos-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+    .silos-col li { font-size: 0.82rem; color: var(--muted); display: flex; gap: 0.4rem; }
+    .silos-col li::before { content: '›'; color: var(--amber); font-weight: 700; flex-shrink: 0; }
+
+    /* ── 30/60/90 PLAN ── */
+    .plan-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .plan-col {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .plan-col-head {
+      padding: 0.75rem 1rem;
+      background: rgba(59,130,246,0.1);
+      border-bottom: 1px solid rgba(59,130,246,0.2);
+    }
+    .plan-col-head h3 {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--blue-light);
+      letter-spacing: 0.5px;
+    }
+    .plan-col ul { list-style: none; padding: 1rem; display: flex; flex-direction: column; gap: 0.6rem; }
+    .plan-col li { font-size: 0.82rem; color: var(--muted); display: flex; gap: 0.5rem; align-items: flex-start; }
+    .plan-col li::before { content: '→'; color: var(--blue); flex-shrink: 0; font-weight: 700; }
+
+    /* ── RITUALS ── */
+    .rituals-stack { display: flex; flex-direction: column; gap: 0.6rem; }
+    .ritual-row {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+    }
+    .ritual-cadence {
+      min-width: 72px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--blue-light);
+      padding-top: 0.1rem;
+    }
+    .ritual-row h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .ritual-row p  { font-size: 0.83rem; color: var(--muted); }
+
+    /* ── SAMPLE OKR CARD ── */
+    .okr-example {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .okr-example .okr-obj-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--amber-light);
+      margin-bottom: 0.4rem;
+    }
+    .okr-example .okr-obj {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+    .okr-example .kr-row {
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .okr-example .kr-row:last-child { margin-bottom: 0; }
+    .okr-example .kr-tag {
+      flex-shrink: 0;
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--blue-light);
+      background: rgba(59,130,246,0.12);
+      border-radius: 6px;
+      padding: 0.1rem 0.45rem;
+    }
+    .okr-example.bad .okr-obj-label { color: var(--red); }
+    .okr-example.bad .kr-tag { color: var(--red); background: rgba(239,68,68,0.12); }
+
+    /* ── TAKEAWAYS ── */
+    .takeaway-stack { display: flex; flex-direction: column; gap: 0.75rem; }
+    .takeaway-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      background: rgba(59,130,246,0.06);
+      border: 1px solid rgba(59,130,246,0.15);
+      border-radius: 12px;
+      padding: 1.1rem 1.25rem;
+    }
+    .takeaway-num {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: var(--blue);
+      color: white;
+      font-size: 0.8rem;
+      font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .takeaway-item p { font-size: 0.9rem; color: var(--text); }
+
+    /* ── DISCUSSION ── */
+    .discussion {
+      background: rgba(245,197,24,0.06);
+      border: 1px solid rgba(245,197,24,0.2);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-top: 1rem;
+    }
+    .discussion .disc-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+    .discussion p { font-size: 0.9rem; color: var(--text); }
+
+    .q-row { display: flex; gap: 0.85rem; align-items: flex-start; margin-bottom: 0.75rem; }
+    .q-row:last-child { margin-bottom: 0; }
+    .q-num {
+      width: 28px; height: 28px;
+      border-radius: 6px;
+      background: var(--gold);
+      color: #0f1117;
+      font-size: 0.8rem;
+      font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .q-row p { font-size: 0.88rem; color: var(--text); }
+
+    /* ── BOTTOM NAV ── */
+    .bottom-nav {
+      text-align: center;
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+      margin-top: 2rem;
+    }
+    .bottom-nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .bottom-nav a:hover { color: var(--blue-light); }
+
+    @media (max-width: 640px) {
+      .top-nav .pill-nav { display: none; }
+      .stats-row, .plan-grid { grid-template-columns: 1fr; }
+      .flow-split, .joy-split, .psych-grid, .silos-grid { grid-template-columns: 1fr; }
+      .hero { padding: 7rem 1.25rem 3rem; }
+      .page-body { padding: 2.5rem 1.25rem 4rem; }
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JQ14P614DJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JQ14P614DJ');
+  </script>
+</head>
+<body>
+
+  <!-- TOP NAV -->
+  <nav class="top-nav">
+    <a href="../../index.html" class="back">← Program Home</a>
+    <span class="session-label">Session 06</span>
+    <div class="pill-nav">
+      <a href="#okrs">OKR Framework</a>
+      <a href="#lean-startup">Lean Startup</a>
+      <a href="#outcomes">Outcomes Over Output</a>
+      <a href="#in-practice">In Practice</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Engineering Leadership Training</p>
+      <h1>Session 6: Aligning to <span>Business Outcomes</span></h1>
+      <p>Engineering teams don't get credit for shipping — they get credit for moving the business. OKRs give you a language for ambition and accountability; the Lean Startup gives you a method for learning fast before you build the wrong thing at scale.</p>
+      <div class="book-tags">
+        <span class="book-tag">Measure What Matters — John Doerr</span>
+        <span class="book-tag">The Lean Startup — Eric Ries</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-body">
+
+    <!-- ── SEGMENT: WHY THIS MATTERS ─────────────────────────────────── -->
+    <div class="segment-divider">
+      <div class="seg-line"></div>
+      <span class="seg-pill">Why This Matters</span>
+      <div class="seg-line"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">📊</div>
+        <div>
+          <h2>Goals Without Measurement Are Just Wishes</h2>
+          <p>Source: Measure What Matters (John Doerr) / The Lean Startup (Eric Ries)</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="stats-row">
+          <div class="stat-box">
+            <div class="stat-num">1999</div>
+            <p>The year John Doerr introduced OKRs to a 40-person startup called Google</p>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">70%</div>
+            <p>Average score on a well-calibrated stretch Key Result — hitting 100% every time means you aimed too low</p>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">42%</div>
+            <p>Of startups fail by building something nobody wanted — the exact failure mode the Build-Measure-Learn loop exists to prevent</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- About the Books -->
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">📖</div>
+        <div>
+          <h2>Measure What Matters</h2>
+          <p>John Doerr's field guide to OKRs, drawn from Intel, Google, and dozens of companies in between</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 1.25rem;">Doerr learned OKRs from Andy Grove at Intel and carried them to Google in 1999, when Larry Page and Sergey Brin were running a company of 40 people out of a garage. The book argues that goals fail not from lack of effort but from lack of clarity — teams work hard on the wrong things because no one wrote down, in measurable terms, what winning actually looks like.</p>
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <div style="font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 0.25rem;">Core Themes</div>
+          <div style="font-size: 0.88rem; color: var(--muted);">→&nbsp;&nbsp;Objectives and Key Results as a goal-setting system</div>
+          <div style="font-size: 0.88rem; color: var(--muted);">→&nbsp;&nbsp;The four OKR "superpowers"</div>
+          <div style="font-size: 0.88rem; color: var(--muted);">→&nbsp;&nbsp;CFRs: Conversations, Feedback, Recognition</div>
+          <div style="font-size: 0.88rem; color: var(--muted);">→&nbsp;&nbsp;Committed vs. aspirational goals</div>
+          <div style="font-size: 0.88rem; color: var(--muted);">→&nbsp;&nbsp;Culture as the thing OKRs are built on top of, not a substitute for it</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">🔬</div>
+        <div>
+          <h2>The Lean Startup</h2>
+          <p>Eric Ries's method for testing ideas before betting the roadmap on them</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 1.25rem;">Ries argues that most startup and product failure isn't a failure of execution — it's a failure to validate the idea before pouring resources into it. The antidote is treating every product decision as a hypothesis, testing it with the smallest possible experiment, and measuring whether customers actually behave differently — not just whether the feature shipped.</p>
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <div style="font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 0.25rem;">Core Themes</div>
+          <div style="font-size: 0.88rem; color: var(--muted);">→&nbsp;&nbsp;The Build-Measure-Learn feedback loop</div>
+          <div style="font-size: 0.88rem; color: var(--muted);">→&nbsp;&nbsp;Minimum Viable Product (MVP) as a learning tool, not a lesser product</div>
+          <div style="font-size: 0.88rem; color: var(--muted);">→&nbsp;&nbsp;Validated learning over feature delivery</div>
+          <div style="font-size: 0.88rem; color: var(--muted);">→&nbsp;&nbsp;Innovation accounting: measuring progress under uncertainty</div>
+          <div style="font-size: 0.88rem; color: var(--muted);">→&nbsp;&nbsp;Pivot or persevere — deciding with data, not conviction</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SEGMENT: OKR FRAMEWORK ─────────────────────────────────────── -->
+    <div class="segment-divider" id="okrs">
+      <div class="seg-line"></div>
+      <span class="seg-pill">The OKR Framework</span>
+      <div class="seg-line"></div>
+    </div>
+    <p class="reading-credit">The what, the how, and the discipline that makes goals stick</p>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">🎯</div>
+        <div>
+          <h2>Objectives &amp; Key Results</h2>
+          <p>Two questions every goal has to answer</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="ideals-stack">
+          <div class="ideal-item">
+            <div class="ideal-num">O</div>
+            <div>
+              <h3>Objective — what, and why it matters</h3>
+              <p>Significant, concrete, and action-oriented. A good Objective is memorable enough to repeat from memory and inspiring enough that people want to work toward it — not a KPI dressed up in aspirational language.</p>
+            </div>
+          </div>
+          <div class="ideal-item">
+            <div class="ideal-num">KR</div>
+            <div>
+              <h3>Key Result — how we'll know we got there</h3>
+              <p>Specific, time-bound, and measurable. If a Key Result can be satisfied by "we worked on it," it's a task, not a Key Result. It should be verifiable with a number, not a feeling.</p>
+            </div>
+          </div>
+        </div>
+        <div class="big-quote large" style="margin-top: 1.25rem;">
+          <p>"Ideas are easy. Execution is everything." — Larry Page, foreword to Measure What Matters</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">⚡</div>
+        <div>
+          <h2>The Four OKR Superpowers</h2>
+          <p>What OKRs do that a spreadsheet of goals doesn't</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="psych-grid">
+          <div class="psych-box">
+            <h4>Focus &amp; Commit</h4>
+            <p>A handful of priorities, stated clearly, beats a long list everyone half-remembers. Saying yes to an OKR means saying no to everything that doesn't serve it.</p>
+          </div>
+          <div class="psych-box">
+            <h4>Align &amp; Connect</h4>
+            <p>Team OKRs are visibly linked to company OKRs. Everyone can trace their weekly work up to a business result, not just a manager's ask.</p>
+          </div>
+          <div class="psych-box">
+            <h4>Track for Accountability</h4>
+            <p>OKRs are graded, not just written. Regular check-ins surface whether a Key Result is on track, at risk, or dead — before the quarter ends.</p>
+          </div>
+          <div class="psych-box">
+            <h4>Stretch for Amazing</h4>
+            <p>Aspirational OKRs are meant to be uncomfortable. A team that hits 100% of every OKR every quarter isn't excelling — it's sandbagging.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">⚖️</div>
+        <div>
+          <h2>Committed vs. Aspirational Goals</h2>
+          <p>Not every OKR should be graded the same way</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="flow-split">
+          <div class="flow-col kills">
+            <h3>Committed Goals</h3>
+            <ul>
+              <li>Tied to metrics the business is publicly counting on — revenue, launch dates, compliance deadlines</li>
+              <li>Resourced and scheduled to be fully achieved</li>
+              <li>Missing one is a real problem worth a retro, not a shrug</li>
+              <li>Should be graded near 1.0 — if it's regularly missed, it wasn't a committed goal, it was a stretch goal mislabeled</li>
+            </ul>
+          </div>
+          <div class="flow-col enables">
+            <h3>Aspirational Goals</h3>
+            <ul>
+              <li>Reflect a bigger, riskier ambition than current resources guarantee</li>
+              <li>Meant to expand what the team believes is possible</li>
+              <li>A 0.7 average score is healthy — it means the bar was set high enough to matter</li>
+              <li>Failure here is data, not a performance issue — that's the point of setting a stretch goal</li>
+            </ul>
+          </div>
+        </div>
+        <div class="big-quote large">
+          <p>Grading an aspirational goal like a committed one just teaches people to stop setting aspirational goals.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">💬</div>
+        <div>
+          <h2>CFRs: The Human System Behind the Numbers</h2>
+          <p>OKRs set the destination; CFRs are the conversations that get you there</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="silos-grid">
+          <div class="silos-col">
+            <h4>Conversations</h4>
+            <ul>
+              <li>Authentic, ongoing exchange between manager and report</li>
+              <li>Focused on performance, not just a annual review script</li>
+              <li>Replaces the once-a-year surprise with continuous calibration</li>
+            </ul>
+          </div>
+          <div class="silos-col">
+            <h4>Feedback</h4>
+            <ul>
+              <li>Bidirectional, peer-to-peer, not just top-down</li>
+              <li>Specific and tied to an observable behavior or result</li>
+              <li>Given close to the moment it's earned, not batched for later</li>
+            </ul>
+          </div>
+          <div class="silos-col">
+            <h4>Recognition</h4>
+            <ul>
+              <li>Calls out contributions that moved a Key Result forward</li>
+              <li>Visible to the team, not private and easy to miss</li>
+              <li>Reinforces the behaviors you actually want repeated</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SEGMENT: LEAN STARTUP ─────────────────────────────────────── -->
+    <div class="segment-divider" id="lean-startup">
+      <div class="seg-line"></div>
+      <span class="seg-pill">Lean Startup Thinking</span>
+      <div class="seg-line"></div>
+    </div>
+    <p class="reading-credit">Before you commit a quarter of engineering to it, test whether it's worth building</p>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">🔁</div>
+        <div>
+          <h2>Build — Measure — Learn</h2>
+          <p>The core loop for turning assumptions into validated learning</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="silos-grid">
+          <div class="silos-col">
+            <h4>Build</h4>
+            <ul>
+              <li>Turn the riskiest assumption into the smallest testable thing</li>
+              <li>An MVP is a learning tool, not a stripped-down product</li>
+              <li>Speed matters more than polish at this stage</li>
+            </ul>
+          </div>
+          <div class="silos-col">
+            <h4>Measure</h4>
+            <ul>
+              <li>Instrument the experiment before you ship it, not after</li>
+              <li>Choose actionable metrics tied to a real customer behavior</li>
+              <li>Decide in advance what result would prove you wrong</li>
+            </ul>
+          </div>
+          <div class="silos-col">
+            <h4>Learn</h4>
+            <ul>
+              <li>Validated learning is the real unit of progress — not story points shipped</li>
+              <li>Feed what you learned back into the next hypothesis</li>
+              <li>Be honest about disconfirming evidence — that's the whole point</li>
+            </ul>
+          </div>
+        </div>
+        <div class="big-quote amber large">
+          <p>"The only way to win is to learn faster than anyone else." — Eric Ries</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">🧭</div>
+        <div>
+          <h2>Pivot or Persevere</h2>
+          <p>A structured decision, made on a cadence — not a crisis reaction</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="flow-split">
+          <div class="flow-col kills">
+            <h3>Signs You Should Pivot</h3>
+            <ul>
+              <li>Engagement or conversion metrics are flat despite real iteration</li>
+              <li>Customers use the workaround, not the feature you built</li>
+              <li>The team's explanations for "why it's not working yet" keep changing</li>
+              <li>You're improving a metric that was never tied to the business outcome</li>
+            </ul>
+          </div>
+          <div class="flow-col enables">
+            <h3>Signs You Should Persevere</h3>
+            <ul>
+              <li>Actionable metrics are moving, even if slowly</li>
+              <li>Customers who try it are retained or come back unprompted</li>
+              <li>The hypothesis hasn't actually been tested yet — you shipped, but didn't measure</li>
+              <li>Leading indicators are healthy even though lagging ones aren't yet</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SEGMENT: OUTCOMES OVER OUTPUT ────────────────────────────── -->
+    <div class="segment-divider" id="outcomes">
+      <div class="seg-line"></div>
+      <span class="seg-pill">Outcomes Over Output</span>
+      <div class="seg-line"></div>
+    </div>
+    <p class="reading-credit">Applying both books to engineering leadership specifically</p>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">🚦</div>
+        <div>
+          <h2>Vanity Metrics vs. Actionable Metrics</h2>
+          <p>One makes a slide look good. The other changes a decision.</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="joy-split">
+          <div class="joy-col low">
+            <h3>Vanity Metrics</h3>
+            <ul>
+              <li>Lines of code written, tickets closed, story points burned</li>
+              <li>Cumulative totals that only ever go up</li>
+              <li>Number of features shipped, regardless of adoption</li>
+              <li>Feels like progress but doesn't tell you what to do differently</li>
+            </ul>
+          </div>
+          <div class="joy-col high">
+            <h3>Actionable Metrics</h3>
+            <ul>
+              <li>p95 latency, error rate, cost per transaction</li>
+              <li>Activation rate, retention curve, feature adoption</li>
+              <li>Cohort-based, so you can see cause and effect</li>
+              <li>Tells you specifically what to build or fix next</li>
+            </ul>
+          </div>
+        </div>
+        <div class="big-quote large">
+          <p>If a metric can't change your next decision, it's decoration, not data.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">📐</div>
+        <div>
+          <h2>A Good vs. Bad Engineering OKR</h2>
+          <p>The same initiative, written two ways</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="okr-example bad">
+          <div class="okr-obj-label">Output, Disguised as a Goal</div>
+          <div class="okr-obj">Migrate the platform to Kubernetes</div>
+          <div class="kr-row"><span class="kr-tag">KR</span> Migrate service A to the new cluster</div>
+          <div class="kr-row"><span class="kr-tag">KR</span> Migrate service B to the new cluster</div>
+          <div class="kr-row"><span class="kr-tag">KR</span> Decommission the old infrastructure</div>
+        </div>
+        <div class="okr-example">
+          <div class="okr-obj-label">Outcome, Tied to the Business</div>
+          <div class="okr-obj">Delight customers with a fast, reliable product experience</div>
+          <div class="kr-row"><span class="kr-tag">KR</span> Reduce p95 page load time from 3.2s to under 1s</div>
+          <div class="kr-row"><span class="kr-tag">KR</span> Increase infrastructure NPS from 42 to 55</div>
+          <div class="kr-row"><span class="kr-tag">KR</span> Cut customer-reported performance incidents by 50%</div>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--muted); margin-top: 1rem;">The migration might be exactly how you hit the second version's Key Results — but written as tasks, it can "succeed" even if customers never notice. Written as outcomes, the team has to prove the work mattered.</p>
+      </div>
+    </div>
+
+    <!-- ── SEGMENT: IN PRACTICE ─────────────────────────────────────── -->
+    <div class="segment-divider" id="in-practice">
+      <div class="seg-line"></div>
+      <span class="seg-pill">Putting It Into Practice</span>
+      <div class="seg-line"></div>
+    </div>
+    <p class="reading-credit">What engineering managers and directors can do this quarter</p>
+
+    <!-- 30/60/90 -->
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">🗓</div>
+        <div>
+          <h2>30 / 60 / 90 Day Leader Actions</h2>
+          <p>A phased plan for making OKRs and validated learning part of how the team operates</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="plan-grid">
+          <div class="plan-col">
+            <div class="plan-col-head"><h3>30 Days</h3></div>
+            <ul>
+              <li>Draft next quarter's team OKRs and trace each Key Result up to a company Objective</li>
+              <li>Audit your current dashboards for vanity vs. actionable metrics</li>
+              <li>Rewrite one existing "task list" OKR as an outcome-based one</li>
+              <li>Identify the riskiest unvalidated assumption on the roadmap</li>
+            </ul>
+          </div>
+          <div class="plan-col">
+            <div class="plan-col-head"><h3>60 Days</h3></div>
+            <ul>
+              <li>Launch a weekly OKR check-in ritual with confidence scoring</li>
+              <li>Ship one MVP experiment before committing full engineering effort</li>
+              <li>Establish a CFR cadence — regular 1:1 conversations tied to goals</li>
+              <li>Share OKR progress visibly with the wider team, not just leadership</li>
+            </ul>
+          </div>
+          <div class="plan-col">
+            <div class="plan-col-head"><h3>90 Days</h3></div>
+            <ul>
+              <li>Run your first full OKR grading and retro at quarter close</li>
+              <li>Present a business review connecting engineering outcomes to company goals</li>
+              <li>Stand up an innovation accounting view for one active initiative</li>
+              <li>Recalibrate: if every OKR scored 1.0, raise the bar next quarter</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rituals -->
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">🔄</div>
+        <div>
+          <h2>Rituals That Keep Goals Honest</h2>
+          <p>OKRs decay into wallpaper without a cadence that forces the team to look at them</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="rituals-stack">
+          <div class="ritual-row">
+            <div class="ritual-cadence">Weekly</div>
+            <div>
+              <h3>OKR check-in</h3>
+              <p>15 minutes: confidence level per Key Result — on track, at risk, or off track — and what's blocking it.</p>
+            </div>
+          </div>
+          <div class="ritual-row">
+            <div class="ritual-cadence">Bi-weekly</div>
+            <div>
+              <h3>CFR conversation</h3>
+              <p>A real 1:1 tied to goals — not a status update, a conversation about what's working and what needs to change.</p>
+            </div>
+          </div>
+          <div class="ritual-row">
+            <div class="ritual-cadence">Sprint</div>
+            <div>
+              <h3>Build-Measure-Learn retro</h3>
+              <p>What did we learn this sprint, not just what did we ship? Update or kill hypotheses based on the data.</p>
+            </div>
+          </div>
+          <div class="ritual-row">
+            <div class="ritual-cadence">Monthly</div>
+            <div>
+              <h3>Metrics audit</h3>
+              <p>Review the dashboard for vanity metrics that crept back in. Cut anything that hasn't changed a decision in 90 days.</p>
+            </div>
+          </div>
+          <div class="ritual-row">
+            <div class="ritual-cadence">Quarterly</div>
+            <div>
+              <h3>OKR grading &amp; next-quarter planning</h3>
+              <p>Score every Key Result 0.0–1.0. Discuss the score honestly, then set the next quarter's OKRs with that context.</p>
+            </div>
+          </div>
+          <div class="ritual-row">
+            <div class="ritual-cadence">Annually</div>
+            <div>
+              <h3>Company-wide alignment session</h3>
+              <p>Cascade top-level company Objectives down so every team can draw a straight line from their work to the business.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Takeaways -->
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">💡</div>
+        <div>
+          <h2>Key Takeaways</h2>
+          <p>Five principles to carry forward</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="takeaway-stack">
+          <div class="takeaway-item">
+            <div class="takeaway-num">01</div>
+            <p>Objectives are the what and why; Key Results are how you'll know. Without both, you have a wish list, not a goal.</p>
+          </div>
+          <div class="takeaway-item">
+            <div class="takeaway-num">02</div>
+            <p>Committed goals should hit 100%. Aspirational goals landing around 70% is a sign you calibrated the ambition correctly — not that the team fell short.</p>
+          </div>
+          <div class="takeaway-item">
+            <div class="takeaway-num">03</div>
+            <p>Engineering exists to produce business outcomes, not just to ship code. Every roadmap item should trace to a Key Result, and every Key Result to a company Objective.</p>
+          </div>
+          <div class="takeaway-item">
+            <div class="takeaway-num">04</div>
+            <p>The Build-Measure-Learn loop turns assumptions into validated learning fast. Build the smallest thing that tests your riskiest assumption before you build the rest.</p>
+          </div>
+          <div class="takeaway-item">
+            <div class="takeaway-num">05</div>
+            <p>Vanity metrics feel good and change nothing. Actionable metrics are unglamorous and drive real decisions. Choose the dashboard accordingly.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Discussion -->
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">💬</div>
+        <div>
+          <h2>Let's Discuss</h2>
+          <p>Reflection questions for your team</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.25rem;">
+          <div class="q-row">
+            <div class="q-num">1</div>
+            <p>Which of your current engineering initiatives would fail the "output vs. outcome" test?</p>
+          </div>
+          <div class="q-row">
+            <div class="q-num">2</div>
+            <p>If you graded last quarter's work as OKRs today, would the Key Results tie back to an Objective — or are they really just a task list?</p>
+          </div>
+          <div class="q-row">
+            <div class="q-num">3</div>
+            <p>What's the riskiest assumption in your current roadmap, and what's the smallest experiment that could validate it before you build the whole thing?</p>
+          </div>
+        </div>
+        <div class="discussion">
+          <div class="disc-label">John Doerr</div>
+          <p>"Ideas are easy. Execution is everything. It takes a team of talented people to implement an idea with excellence."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="bottom-nav">
+      <a href="../../index.html">← Back to Engineering Leadership Program</a>
+    </div>
+
+  </main>
+</body>
+</html>
