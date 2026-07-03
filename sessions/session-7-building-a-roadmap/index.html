@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Session 7: Building a Roadmap</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #21243a;
+      --violet: #8b5cf6;
+      --violet-light: #a78bfa;
+      --rose: #fb7185;
+      --rose-light: #fda4af;
+      --gold: #f5c518;
+      --red: #f87171;
+      --green: #34d399;
+      --text: #eaeaea;
+      --muted: #8b8fa8;
+      --border: rgba(255,255,255,0.07);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ── TOP NAV ── */
+    .top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(15,17,23,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.85rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .top-nav .back {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+    .top-nav .back:hover { color: var(--violet-light); }
+    .top-nav .session-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--violet);
+    }
+    .top-nav .pill-nav {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .top-nav .pill-nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .top-nav .pill-nav a:hover {
+      color: var(--text);
+      border-color: var(--violet);
+      background: rgba(139,92,246,0.08);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 52vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 8rem 2rem 4rem;
+      background:
+        radial-gradient(ellipse at 70% 0%, rgba(251,113,133,0.15) 0%, transparent 55%),
+        radial-gradient(ellipse at 0% 90%, rgba(139,92,246,0.08) 0%, transparent 50%),
+        var(--bg);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: '07';
+      position: absolute;
+      right: 6%;
+      bottom: -2rem;
+      font-size: clamp(10rem, 20vw, 18rem);
+      font-weight: 900;
+      color: rgba(255,255,255,0.025);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 860px; }
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--violet);
+      margin-bottom: 1rem;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 span { color: var(--rose-light); }
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 640px;
+      margin-bottom: 1.75rem;
+    }
+    .book-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .book-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      border: 1px solid;
+      color: var(--rose-light);
+      border-color: rgba(251,113,133,0.4);
+      background: rgba(251,113,133,0.08);
+    }
+
+    /* ── LAYOUT ── */
+    .page-body {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    /* ── SEGMENT DIVIDER ── */
+    .segment-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 4rem 0 2.5rem;
+    }
+    .segment-divider .seg-line { flex: 1; height: 1px; background: var(--border); }
+    .seg-pill {
+      padding: 0.4rem 1.2rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      background: rgba(139,92,246,0.12);
+      color: var(--violet-light);
+      border: 1px solid rgba(139,92,246,0.3);
+    }
+
+    .reading-credit {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+    .card-head {
+      padding: 1.25rem 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .card-head .icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.15rem;
+      flex-shrink: 0;
+      background: rgba(139,92,246,0.15);
+    }
+    .card-head h2 { font-size: 1.15rem; font-weight: 700; }
+    .card-head p  { font-size: 0.8rem; color: var(--muted); margin-top: 0.1rem; }
+    .card-body { padding: 1.75rem; }
+
+    /* ── BIG QUOTE ── */
+    .big-quote {
+      background: rgba(139,92,246,0.07);
+      border: 1px solid rgba(139,92,246,0.2);
+      border-left: 4px solid var(--violet);
+      border-radius: 12px;
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 1rem;
+    }
+    .big-quote p { font-size: 1.05rem; font-style: italic; color: var(--violet-light); line-height: 1.6; }
+    .big-quote.large p { font-size: 1.35rem; font-weight: 700; }
+    .big-quote.rose {
+      background: rgba(251,113,133,0.07);
+      border-color: rgba(251,113,133,0.2);
+      border-left-color: var(--rose);
+    }
+    .big-quote.rose p { color: var(--rose-light); }
+
+    /* ── STATS ROW ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .stat-box {
+      background: rgba(251,113,133,0.07);
+      border: 1px solid rgba(251,113,133,0.2);
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+    .stat-box .stat-num {
+      font-size: 2.25rem;
+      font-weight: 900;
+      color: var(--rose-light);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .stat-box p { font-size: 0.8rem; color: var(--muted); line-height: 1.4; }
+
+    /* ── NUMBERED STACK (Horizons) ── */
+    .ideals-stack { display: flex; flex-direction: column; gap: 0.75rem; }
+    .ideal-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.1rem 1.25rem;
+    }
+    .ideal-num {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: rgba(139,92,246,0.15);
+      border: 1px solid rgba(139,92,246,0.3);
+      color: var(--violet-light);
+      font-size: 0.9rem;
+      font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .ideal-item h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.25rem; color: var(--text); }
+    .ideal-item p  { font-size: 0.85rem; color: var(--muted); }
+
+    /* ── TWO-COLUMN CONTRAST ── */
+    .flow-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .flow-col {
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+    .flow-col.kills {
+      background: rgba(239,68,68,0.07);
+      border: 1px solid rgba(239,68,68,0.2);
+    }
+    .flow-col.enables {
+      background: rgba(52,211,153,0.07);
+      border: 1px solid rgba(52,211,153,0.2);
+    }
+    .flow-col h3 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 0.85rem;
+    }
+    .flow-col.kills h3 { color: var(--red); }
+    .flow-col.enables h3 { color: var(--green); }
+    .flow-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .flow-col li { font-size: 0.85rem; color: var(--muted); display: flex; gap: 0.5rem; align-items: flex-start; }
+    .flow-col.kills li::before { content: '✕'; color: var(--red); font-weight: 700; flex-shrink: 0; }
+    .flow-col.enables li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+
+    /* ── 2x2 GRID (Confidence Language) ── */
+    .psych-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .psych-box {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.1rem;
+    }
+    .psych-box h4 { font-size: 0.9rem; font-weight: 700; color: var(--violet-light); margin-bottom: 0.35rem; }
+    .psych-box p  { font-size: 0.83rem; color: var(--muted); }
+
+    /* ── REACTIVE VS RISK-FIRST SPLIT ── */
+    .joy-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .joy-col {
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+    .joy-col.low {
+      background: rgba(239,68,68,0.07);
+      border: 1px solid rgba(239,68,68,0.2);
+    }
+    .joy-col.high {
+      background: rgba(52,211,153,0.07);
+      border: 1px solid rgba(52,211,153,0.2);
+    }
+    .joy-col h3 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 0.85rem;
+    }
+    .joy-col.low h3  { color: var(--red); }
+    .joy-col.high h3 { color: var(--green); }
+    .joy-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .joy-col li { font-size: 0.85rem; color: var(--muted); display: flex; gap: 0.5rem; align-items: flex-start; }
+    .joy-col.low  li::before { content: '—'; color: var(--red); font-weight: 700; flex-shrink: 0; }
+    .joy-col.high li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+
+    /* ── 3-UP GRID (OKR → Roadmap chain) ── */
+    .silos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .silos-col {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.1rem;
+    }
+    .silos-col h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--rose-light);
+      margin-bottom: 0.75rem;
+    }
+    .silos-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+    .silos-col li { font-size: 0.82rem; color: var(--muted); display: flex; gap: 0.4rem; }
+    .silos-col li::before { content: '›'; color: var(--rose); font-weight: 700; flex-shrink: 0; }
+
+    /* ── 30/60/90 PLAN ── */
+    .plan-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .plan-col {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .plan-col-head {
+      padding: 0.75rem 1rem;
+      background: rgba(139,92,246,0.1);
+      border-bottom: 1px solid rgba(139,92,246,0.2);
+    }
+    .plan-col-head h3 {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--violet-light);
+      letter-spacing: 0.5px;
+    }
+    .plan-col ul { list-style: none; padding: 1rem; display: flex; flex-direction: column; gap: 0.6rem; }
+    .plan-col li { font-size: 0.82rem; color: var(--muted); display: flex; gap: 0.5rem; align-items: flex-start; }
+    .plan-col li::before { content: '→'; color: var(--violet); flex-shrink: 0; font-weight: 700; }
+
+    /* ── RITUALS ── */
+    .rituals-stack { display: flex; flex-direction: column; gap: 0.6rem; }
+    .ritual-row {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+    }
+    .ritual-cadence {
+      min-width: 72px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--violet-light);
+      padding-top: 0.1rem;
+    }
+    .ritual-row h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .ritual-row p  { font-size: 0.83rem; color: var(--muted); }
+
+    /* ── ROADMAP ITEM EXAMPLE CARD ── */
+    .okr-example {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .okr-example .okr-obj-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--rose-light);
+      margin-bottom: 0.4rem;
+    }
+    .okr-example .okr-obj {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+    .okr-example .kr-row {
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .okr-example .kr-row:last-child { margin-bottom: 0; }
+    .okr-example .kr-tag {
+      flex-shrink: 0;
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--violet-light);
+      background: rgba(139,92,246,0.12);
+      border-radius: 6px;
+      padding: 0.1rem 0.45rem;
+    }
+    .okr-example.bad .okr-obj-label { color: var(--red); }
+    .okr-example.bad .kr-tag { color: var(--red); background: rgba(239,68,68,0.12); }
+
+    /* ── TAKEAWAYS ── */
+    .takeaway-stack { display: flex; flex-direction: column; gap: 0.75rem; }
+    .takeaway-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      background: rgba(139,92,246,0.06);
+      border: 1px solid rgba(139,92,246,0.15);
+      border-radius: 12px;
+      padding: 1.1rem 1.25rem;
+    }
+    .takeaway-num {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: var(--violet);
+      color: white;
+      font-size: 0.8rem;
+      font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .takeaway-item p { font-size: 0.9rem; color: var(--text); }
+
+    /* ── DISCUSSION ── */
+    .discussion {
+      background: rgba(245,197,24,0.06);
+      border: 1px solid rgba(245,197,24,0.2);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-top: 1rem;
+    }
+    .discussion .disc-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+    .discussion p { font-size: 0.9rem; color: var(--text); }
+
+    .q-row { display: flex; gap: 0.85rem; align-items: flex-start; margin-bottom: 0.75rem; }
+    .q-row:last-child { margin-bottom: 0; }
+    .q-num {
+      width: 28px; height: 28px;
+      border-radius: 6px;
+      background: var(--gold);
+      color: #0f1117;
+      font-size: 0.8rem;
+      font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .q-row p { font-size: 0.88rem; color: var(--text); }
+
+    /* ── BOTTOM NAV ── */
+    .bottom-nav {
+      text-align: center;
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+      margin-top: 2rem;
+    }
+    .bottom-nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .bottom-nav a:hover { color: var(--violet-light); }
+
+    @media (max-width: 640px) {
+      .top-nav .pill-nav { display: none; }
+      .stats-row, .plan-grid { grid-template-columns: 1fr; }
+      .flow-split, .joy-split, .psych-grid, .silos-grid { grid-template-columns: 1fr; }
+      .hero { padding: 7rem 1.25rem 3rem; }
+      .page-body { padding: 2.5rem 1.25rem 4rem; }
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JQ14P614DJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JQ14P614DJ');
+  </script>
+</head>
+<body>
+
+  <!-- TOP NAV -->
+  <nav class="top-nav">
+    <a href="../../index.html" class="back">← Program Home</a>
+    <span class="session-label">Session 07</span>
+    <div class="pill-nav">
+      <a href="#horizons">Now / Next / Later</a>
+      <a href="#from-okrs">OKRs to Roadmap</a>
+      <a href="#estimation">Estimating &amp; Sequencing</a>
+      <a href="#in-practice">In Practice</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Engineering Leadership Training</p>
+      <h1>Session 7: Building a <span>Roadmap</span></h1>
+      <p>A roadmap isn't a promise of dates — it's a sequenced argument for why this work, in this order, gets you to the outcomes you committed to in your OKRs. The job is to be honest about confidence, not to look certain.</p>
+      <div class="book-tags">
+        <span class="book-tag">Framework: Now / Next / Later</span>
+        <span class="book-tag">Tool: Estimation &amp; Sequencing</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-body">
+
+    <!-- ── SEGMENT: WHY THIS MATTERS ─────────────────────────────────── -->
+    <div class="segment-divider">
+      <div class="seg-line"></div>
+      <span class="seg-pill">Why This Matters</span>
+      <div class="seg-line"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">🗺️</div>
+        <div>
+          <h2>Field Heuristics for Roadmapping</h2>
+          <p>Rules of thumb worth internalizing before you sequence a single ticket</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="stats-row">
+          <div class="stat-box">
+            <div class="stat-num">3</div>
+            <p>Confidence horizons every roadmap needs — precise near-term, directional mid-term, thematic long-term</p>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">2×</div>
+            <p>A reasonable padding factor once an estimate crosses a team boundary or an unowned dependency</p>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">1</div>
+            <p>The number of Key Results every roadmap item should trace back to — if it's zero, ask why it's on the roadmap</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">🎭</div>
+        <div>
+          <h2>The Core Problem: Date-Certainty Theater</h2>
+          <p>Most roadmaps fail not because the work was hard, but because the roadmap lied about how well it was understood</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 1.25rem;">A roadmap with a hard date on every row looks impressive in a slide and falls apart on contact with reality. Work you haven't scoped yet doesn't get more knowable by assigning it a quarter. The fix isn't fewer dates — it's being explicit about which items are backed by real estimation and sequencing work, and which are still a bet.</p>
+        <div class="big-quote large">
+          <p>A roadmap's job is to communicate confidence honestly — not to look finished.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SEGMENT: NOW / NEXT / LATER ─────────────────────────────────── -->
+    <div class="segment-divider" id="horizons">
+      <div class="seg-line"></div>
+      <span class="seg-pill">The Now / Next / Later Framework</span>
+      <div class="seg-line"></div>
+    </div>
+    <p class="reading-credit">Three horizons, three levels of detail, three levels of confidence</p>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">🧭</div>
+        <div>
+          <h2>The Three Horizons</h2>
+          <p>Match the precision of your roadmap to how well the work is actually understood</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="ideals-stack">
+          <div class="ideal-item">
+            <div class="ideal-num">1</div>
+            <div>
+              <h3>Now — this quarter, high confidence</h3>
+              <p>Scoped, estimated, sequenced, and dependency-checked. This is the only tier where a sprint number or a date belongs.</p>
+            </div>
+          </div>
+          <div class="ideal-item">
+            <div class="ideal-num">2</div>
+            <div>
+              <h3>Next — one to two quarters out, directional</h3>
+              <p>The problem is well understood, the solution isn't fully designed yet. T-shirt sized, not story-pointed. Order can still shift.</p>
+            </div>
+          </div>
+          <div class="ideal-item">
+            <div class="ideal-num">3</div>
+            <div>
+              <h3>Later — thematic, low confidence</h3>
+              <p>A direction, not a plan. Exists to signal intent and gather feedback — not to be held to, and not to be estimated yet.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">🗣️</div>
+        <div>
+          <h2>Confidence Language</h2>
+          <p>The words you use with stakeholders should match the horizon the work actually lives in</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="psych-grid">
+          <div class="psych-box">
+            <h4>Committed</h4>
+            <p>Scoped, estimated, and sequenced this sprint or quarter. You are accountable to this date — treat a miss as worth a retro.</p>
+          </div>
+          <div class="psych-box">
+            <h4>Targeting</h4>
+            <p>Real intent, real estimate, but a dependency or unknown could still move it. Say "targeting Q3," not "shipping Q3."</p>
+          </div>
+          <div class="psych-box">
+            <h4>Exploring</h4>
+            <p>Actively being scoped or prototyped. No estimate exists yet because the problem isn't fully understood.</p>
+          </div>
+          <div class="psych-box">
+            <h4>Someday</h4>
+            <p>On the radar, not resourced. Naming it prevents it from being silently forgotten, without pretending it's planned.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SEGMENT: FROM OKRS TO ROADMAP ────────────────────────────── -->
+    <div class="segment-divider" id="from-okrs">
+      <div class="seg-line"></div>
+      <span class="seg-pill">From OKRs to Roadmap</span>
+      <div class="seg-line"></div>
+    </div>
+    <p class="reading-credit">A roadmap is what your OKRs look like once you sequence them</p>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">🔗</div>
+        <div>
+          <h2>The Chain of Custody for Every Roadmap Item</h2>
+          <p>If you can't trace a row on your roadmap back to a business Objective, it doesn't belong there yet</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="silos-grid">
+          <div class="silos-col">
+            <h4>Objective</h4>
+            <ul>
+              <li>The business result you're chasing this quarter or year</li>
+              <li>Set once, referenced constantly</li>
+              <li>Comes from Session 6's OKR work, not invented on the roadmap</li>
+            </ul>
+          </div>
+          <div class="silos-col">
+            <h4>Key Result</h4>
+            <ul>
+              <li>The measurable signal that the Objective is being achieved</li>
+              <li>Every roadmap initiative should move at least one of these</li>
+              <li>If an item can't be tied to one, question whether it's actually a priority</li>
+            </ul>
+          </div>
+          <div class="silos-col">
+            <h4>Roadmap Initiative</h4>
+            <ul>
+              <li>The actual body of work — scoped, estimated, and sequenced</li>
+              <li>Lives in Now, Next, or Later depending on how well it's understood</li>
+              <li>Carries a confidence label so stakeholders know how solid it is</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">🏚️</div>
+        <div>
+          <h2>Orphaned Work vs. Work With a Home</h2>
+          <p>The fastest way to bloat a roadmap is to let items onto it without a Key Result attached</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="flow-split">
+          <div class="flow-col kills">
+            <h3>Orphaned Work</h3>
+            <ul>
+              <li>Added because a stakeholder asked loudly, not because it moves a metric</li>
+              <li>Justified after the fact with a Key Result invented to fit it</li>
+              <li>Survives roadmap reviews by nobody asking "why is this here?"</li>
+              <li>Crowds out capacity that committed OKR work actually needs</li>
+            </ul>
+          </div>
+          <div class="flow-col enables">
+            <h3>Work With a Home</h3>
+            <ul>
+              <li>Exists because it's the clearest path to a specific Key Result</li>
+              <li>Can be cut in one sentence: "this moves KR2 from 40% to 60%"</li>
+              <li>Gets prioritized against other KR-linked work on its merits</li>
+              <li>Makes trade-off conversations concrete instead of political</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SEGMENT: ESTIMATING & SEQUENCING ────────────────────────── -->
+    <div class="segment-divider" id="estimation">
+      <div class="seg-line"></div>
+      <span class="seg-pill">Estimating &amp; Sequencing Honestly</span>
+      <div class="seg-line"></div>
+    </div>
+    <p class="reading-credit">Order the work to retire risk early — not to satisfy whoever asked most recently</p>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">⚖️</div>
+        <div>
+          <h2>Reactive vs. Risk-First Sequencing</h2>
+          <p>The order you do work in matters as much as the estimates you attach to it</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="joy-split">
+          <div class="joy-col low">
+            <h3>Reactive Sequencing</h3>
+            <ul>
+              <li>Whoever escalated most recently jumps the queue</li>
+              <li>Dependencies get discovered mid-sprint, not before</li>
+              <li>The riskiest, least-understood item is scheduled last "to be safe"</li>
+              <li>Surprises show up in week 10 of a 12-week initiative</li>
+            </ul>
+          </div>
+          <div class="joy-col high">
+            <h3>Risk-First Sequencing</h3>
+            <ul>
+              <li>Order is set by dependency graph and confidence, not by volume of asks</li>
+              <li>Cross-team dependencies are flagged and sequenced before they block anyone</li>
+              <li>The riskiest, least-understood item is tackled first, while there's still time to react</li>
+              <li>Surprises show up in week 1, when they're still cheap to absorb</li>
+            </ul>
+          </div>
+        </div>
+        <div class="big-quote large">
+          <p>Sequence to retire your biggest unknown first — not to please whoever asked last.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">📐</div>
+        <div>
+          <h2>A Roadmap Item, Written Two Ways</h2>
+          <p>The same initiative, with and without the estimation and sequencing discipline behind it</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="okr-example bad">
+          <div class="okr-obj-label">No Estimate, No Dependency Check</div>
+          <div class="okr-obj">"Ship the new onboarding flow" — Q3</div>
+          <div class="kr-row"><span class="kr-tag">?</span> No story points or dev-day estimate on record</div>
+          <div class="kr-row"><span class="kr-tag">?</span> Dependency on the auth team's API surfaced two weeks before the deadline</div>
+          <div class="kr-row"><span class="kr-tag">?</span> No confidence label — stakeholders read "Q3" as a promise</div>
+        </div>
+        <div class="okr-example">
+          <div class="okr-obj-label">Estimated, Sequenced, Confidence-Labeled</div>
+          <div class="okr-obj">Redesign onboarding to lift activation from 38% → 50% (ties to KR2)</div>
+          <div class="kr-row"><span class="kr-tag">13pt</span> Estimated at 13 story points / 10 dev days, Medium confidence</div>
+          <div class="kr-row"><span class="kr-tag">Dep</span> Dependency on auth team flagged and sequenced into Sprint 1</div>
+          <div class="kr-row"><span class="kr-tag">Now</span> Labeled "Targeting Q3" — not "Shipping Q3" — until the dependency clears</div>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--muted); margin-top: 1rem;">Use the <a href="/engineering-leadership/agile-roadmap/" target="_blank" style="color: var(--violet-light);">Estimation &amp; Sequencing tool</a> to capture story points, dev days, confidence, dependencies, and risk level per initiative — the same fields that turn the left card into the right one.</p>
+      </div>
+    </div>
+
+    <!-- ── SEGMENT: IN PRACTICE ─────────────────────────────────────── -->
+    <div class="segment-divider" id="in-practice">
+      <div class="seg-line"></div>
+      <span class="seg-pill">Putting It Into Practice</span>
+      <div class="seg-line"></div>
+    </div>
+    <p class="reading-credit">What engineering managers and directors can do this quarter</p>
+
+    <!-- 30/60/90 -->
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">🗓</div>
+        <div>
+          <h2>30 / 60 / 90 Day Leader Actions</h2>
+          <p>A phased plan for turning your OKRs into a roadmap people actually trust</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="plan-grid">
+          <div class="plan-col">
+            <div class="plan-col-head"><h3>30 Days</h3></div>
+            <ul>
+              <li>Sort the current roadmap into Now / Next / Later and relabel confidence honestly</li>
+              <li>Trace every "Now" item back to a Key Result — cut or park anything orphaned</li>
+              <li>Run the Estimation &amp; Sequencing tool against your top 10 initiatives</li>
+              <li>Flag the single riskiest, least-understood dependency on the roadmap</li>
+            </ul>
+          </div>
+          <div class="plan-col">
+            <div class="plan-col-head"><h3>60 Days</h3></div>
+            <ul>
+              <li>Resequence "Now" work so the riskiest item goes first, not last</li>
+              <li>Adopt confidence language ("targeting," "exploring") in every stakeholder update</li>
+              <li>Start tracking estimate variance to calibrate future sizing</li>
+              <li>Hold a cross-team dependency review before committing next quarter's "Now"</li>
+            </ul>
+          </div>
+          <div class="plan-col">
+            <div class="plan-col-head"><h3>90 Days</h3></div>
+            <ul>
+              <li>Re-sequence "Next" into "Now" as a quarterly ritual, not an ad hoc scramble</li>
+              <li>Review variance data and adjust the 2× padding rule per team or dependency type</li>
+              <li>Present the roadmap alongside OKR progress in one leadership review</li>
+              <li>Retire or re-scope anything that's sat in "Later" for two quarters unchanged</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rituals -->
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">🔄</div>
+        <div>
+          <h2>Rituals That Keep a Roadmap Honest</h2>
+          <p>A roadmap is a living document — treat it like one or watch it calcify into fiction</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="rituals-stack">
+          <div class="ritual-row">
+            <div class="ritual-cadence">Weekly</div>
+            <div>
+              <h3>Backlog refinement</h3>
+              <p>Scope and estimate the next slice of "Now" work before it's needed, not the sprint it starts.</p>
+            </div>
+          </div>
+          <div class="ritual-row">
+            <div class="ritual-cadence">Sprint</div>
+            <div>
+              <h3>Sequencing check</h3>
+              <p>Re-confirm dependency order is still correct — teams and priorities shift underneath a roadmap constantly.</p>
+            </div>
+          </div>
+          <div class="ritual-row">
+            <div class="ritual-cadence">Sprint</div>
+            <div>
+              <h3>Estimate variance review</h3>
+              <p>Compare actual days to estimated days. Feed the delta back into how the team sizes similar work next time.</p>
+            </div>
+          </div>
+          <div class="ritual-row">
+            <div class="ritual-cadence">Monthly</div>
+            <div>
+              <h3>Cross-team dependency sync</h3>
+              <p>Surface anything in "Next" that depends on another team before it becomes a "Now" blocker.</p>
+            </div>
+          </div>
+          <div class="ritual-row">
+            <div class="ritual-cadence">Quarterly</div>
+            <div>
+              <h3>Horizon shift</h3>
+              <p>Move "Next" into "Now" and "Later" into "Next," re-scoping and re-estimating as confidence improves.</p>
+            </div>
+          </div>
+          <div class="ritual-row">
+            <div class="ritual-cadence">Quarterly</div>
+            <div>
+              <h3>Roadmap-to-OKR audit</h3>
+              <p>Check every item still traces to a live Key Result. Cut what doesn't, no matter how far along it is.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Takeaways -->
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">💡</div>
+        <div>
+          <h2>Key Takeaways</h2>
+          <p>Five principles to carry forward</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="takeaway-stack">
+          <div class="takeaway-item">
+            <div class="takeaway-num">01</div>
+            <p>A roadmap's job is to communicate confidence honestly, not to look finished. Match the precision of each item to how well it's actually understood.</p>
+          </div>
+          <div class="takeaway-item">
+            <div class="takeaway-num">02</div>
+            <p>Now / Next / Later isn't a formatting choice — it's a discipline for refusing to put a hard date on work you haven't scoped yet.</p>
+          </div>
+          <div class="takeaway-item">
+            <div class="takeaway-num">03</div>
+            <p>Every roadmap item should trace to a Key Result. If it can't, it's either orphaned work or a sign your OKRs are incomplete.</p>
+          </div>
+          <div class="takeaway-item">
+            <div class="takeaway-num">04</div>
+            <p>Sequence to retire your biggest unknown first. The riskiest item belongs at the front of the queue, not the back.</p>
+          </div>
+          <div class="takeaway-item">
+            <div class="takeaway-num">05</div>
+            <p>Estimates are a hypothesis, not a commitment, until dependencies are checked. Track variance and let it calibrate the next estimate.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Discussion -->
+    <div class="card">
+      <div class="card-head">
+        <div class="icon">💬</div>
+        <div>
+          <h2>Let's Discuss</h2>
+          <p>Reflection questions for your team</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.25rem;">
+          <div class="q-row">
+            <div class="q-num">1</div>
+            <p>Pull up your current roadmap — how many "Now" items actually have an estimate and a dependency check behind them?</p>
+          </div>
+          <div class="q-row">
+            <div class="q-num">2</div>
+            <p>Which item on your roadmap can't be traced to a Key Result, and why is it still there?</p>
+          </div>
+          <div class="q-row">
+            <div class="q-num">3</div>
+            <p>What's the riskiest, least-understood dependency in your current quarter — and is it sequenced first or last?</p>
+          </div>
+        </div>
+        <div class="discussion">
+          <div class="disc-label">Dwight D. Eisenhower</div>
+          <p>"Plans are useless, but planning is indispensable."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="bottom-nav">
+      <a href="../../index.html">← Back to Engineering Leadership Program</a>
+    </div>
+
+  </main>
+</body>
+</html>
